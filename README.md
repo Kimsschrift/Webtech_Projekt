@@ -2,8 +2,7 @@
 
 # Tema-Mitglieder 
 Dongwoo Kim
-.
-.
+und ....
 
 # Thema 
 Wir machen eine Plattform über Job-Suche.
