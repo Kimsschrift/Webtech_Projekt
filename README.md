@@ -10,14 +10,14 @@ KarriereHub ist eine Plattform für die Jobsuche.
 Nutzer können Stellenanzeigen gezielt nach ihren Fähigkeiten und 
 Qualifikationen filtern, z.B. nach Studiengang, Sprachen oder technischen Skills.
 Durch diese Filterung finden Bewerber schneller passende Angebote und 
-Unternehmen geeignete Kandidaten.finden.  
+Unternehmen geeignete Kandidaten finden.  
 
 # Funktionen
 - Unternehmen registrieren und verwalten
 - Stellenanzeigen anlegen, bearbeiten und löschen
 - Filter nach Skills, Abschluss, Sprachen, usw. 
 - Frontend mit Vue.js, Backend mit Spring Boot
-- In-Memory H2-Datenbank 
+- In-Memory H2-Datenbank (Entwicklung) / PostgreSQL (Produktion)
 
 # Tech-Stack 
 - Backend: Java, Spring Boot, Spring Data JPA, H2
