@@ -5,6 +5,7 @@ import htw_berlin.webtech.domain.enums.DegreeLevel;
 import htw_berlin.webtech.domain.enums.EmploymentType;
 import htw_berlin.webtech.domain.enums.Industry;
 import htw_berlin.webtech.domain.enums.WorkTime;
+import htw_berlin.webtech.repository.JobPostingRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -14,29 +15,21 @@ import java.util.List;
 @Service
 public class JobPostingService {
 
+    private final JobPostingRepository jobPostingRepository;
+
+    public JobPostingService(JobPostingRepository jobPostingRepository) {
+        this.jobPostingRepository = jobPostingRepository;
+    }
+
+
     // M1-Stufe: liefert einfach ein einzelnes Beispiel-Objekt zurück.
     // bei späteren Stufen ersetze ich das durch DB-Zugriff
 
     public JobPosting getJobPosting() {
-        return JobPosting.builder()
-                .id(1L)
-                .title("Java Backend Developer")
-                .skills(List.of("Java", "SQL"))
-                .minDegree(DegreeLevel.BACHELOR)
-                .languages(List.of("German", "English"))
-                .expectedSalary(new BigDecimal("50000"))
-                .location("Berlin")
-                .remoteAllowed(false)
-                .requiresExperience(true)
-                .employmentType(EmploymentType.FULL_TIME)
-                .workTime(WorkTime.FULL_TIME)
-                .industry(Industry.IT)
-                .company(null)  // noch kein Company-Objekt
-                .build();
+        return jobPostingRepository.findById(1L)
+                .orElseThrow(() -> new RuntimeException("JobPosting mit ID 1 nicht gefunden"));
     }
-
-    // später real implementieren
     public List<JobPosting> listAll() {
-        return Collections.singletonList(getJobPosting());
+        return jobPostingRepository.findAll();
     }
 }

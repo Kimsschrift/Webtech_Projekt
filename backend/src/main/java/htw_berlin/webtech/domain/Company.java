@@ -7,7 +7,7 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity(name = "company")
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,19 +18,16 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    private String name;
+    private String firstName;
 
-    @NotBlank
+    private String lastName;
+
     private String address;
 
-    @NotBlank
     private String legalForm;
 
-    @NotBlank
     private String website;
 
-    @NotBlank
     private String contactEmail;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
