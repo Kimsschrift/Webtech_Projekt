@@ -11,12 +11,12 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.util.List;
 
-@Entity(name = "jobposting")
+@Entity(name = "job_posting")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Builder(toBuilder = true)
 public class JobPosting {
 
     @Id
@@ -27,7 +27,10 @@ public class JobPosting {
     private String title;
 
     @ElementCollection
-    @CollectionTable(name = "job_posting_skills", joinColumns = @JoinColumn(name = "job_posting_id"))
+    @CollectionTable(
+            name = "job_posting_skills",
+            joinColumns = @JoinColumn(name = "job_posting_id", referencedColumnName = "id"))
+    @Column(name = "skills", nullable = false)
     @NotEmpty
     private List<@NotBlank String> skills;
 
@@ -36,7 +39,10 @@ public class JobPosting {
     private DegreeLevel minDegree;
 
     @ElementCollection
-    @CollectionTable(name = "job_posting_languages", joinColumns = @JoinColumn(name = "job_posting_id"))
+    @CollectionTable(
+            name = "job_posting_languages",
+            joinColumns = @JoinColumn(name = "job_posting_id",  referencedColumnName = "id"))
+    @Column(name = "languages", nullable = false)
     @NotEmpty
     private List<@NotBlank String> languages;
 
@@ -63,7 +69,7 @@ public class JobPosting {
     private Industry industry;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "company_id", nullable = false)
+    @JoinColumn(name = "company_id", nullable = false, referencedColumnName = "id")
     @NotNull
     private Company company;
 }

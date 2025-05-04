@@ -18,9 +18,7 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String firstName;
-
-    private String lastName;
+    private String name;
 
     private String address;
 
@@ -30,7 +28,7 @@ public class Company {
 
     private String contactEmail;
 
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<JobPosting> jobPostings = new ArrayList<>();
 
 }

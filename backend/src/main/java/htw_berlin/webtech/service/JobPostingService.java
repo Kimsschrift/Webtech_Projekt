@@ -6,8 +6,11 @@ import htw_berlin.webtech.domain.enums.EmploymentType;
 import htw_berlin.webtech.domain.enums.Industry;
 import htw_berlin.webtech.domain.enums.WorkTime;
 import htw_berlin.webtech.repository.JobPostingRepository;
+import org.springframework.transaction.annotation.Transactional;
+import lombok.Builder;
 import org.springframework.stereotype.Service;
 
+import java.beans.Transient;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
@@ -21,15 +24,10 @@ public class JobPostingService {
         this.jobPostingRepository = jobPostingRepository;
     }
 
-
-    // M1-Stufe: liefert einfach ein einzelnes Beispiel-Objekt zurück.
-    // bei späteren Stufen ersetze ich das durch DB-Zugriff
-
-    public JobPosting getJobPosting() {
-        return jobPostingRepository.findById(1L)
-                .orElseThrow(() -> new RuntimeException("JobPosting mit ID 1 nicht gefunden"));
-    }
-    public List<JobPosting> listAll() {
-        return jobPostingRepository.findAll();
+    @Transactional
+    public List<JobPosting> findAll() {
+        return jobPostingRepository.findAll().stream()
+                .map(job -> job.toBuilder().build())
+                .toList();
     }
 }
