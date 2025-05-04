@@ -32,35 +32,11 @@ public class JobPostingController {
 
     @GetMapping
     public ResponseEntity<List<JobPostingDto>> fetchJobPosting() {
-        List<JobPosting> postings = jobPostingService.findAll();
-        List<JobPostingDto> dtos = postings.stream()
-                .map(posting -> JobPostingDto.builder()
-                        .id(posting.getId())
-                        .title(posting.getTitle())
-                        .skills(posting.getSkills())
-                        .minDegree(posting.getMinDegree())
-                        .languages(posting.getLanguages())
-                        .expectedSalary(posting.getExpectedSalary())
-                        .location(posting.getLocation())
-                        .remoteAllowed(posting.isRemoteAllowed())
-                        .requiresExperience(posting.isRequiresExperience())
-                        .employmentType(posting.getEmploymentType())
-                        .workTime(posting.getWorkTime())
-                        .industry(posting.getIndustry())
-                        .company(
-                                CompanyDto.builder()
-                                        .id(posting.getCompany().getId())
-                                        .name(posting.getCompany().getName())
-                                        .address(posting.getCompany().getAddress())
-                                        .legalForm(posting.getCompany().getLegalForm())
-                                        .website(posting.getCompany().getWebsite())
-                                        .contactEmail(posting.getCompany().getContactEmail())
-                                        .build()
-                        )
-                        .build()
-                )
-                .toList();
+        List<JobPostingDto> postings = jobPostingService.getAllJobPostings();
 
-        return ResponseEntity.ok(dtos);
+        if (postings.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(postings);
     }
 }

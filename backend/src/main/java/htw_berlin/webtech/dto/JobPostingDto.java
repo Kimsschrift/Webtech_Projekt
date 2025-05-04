@@ -1,5 +1,6 @@
 package htw_berlin.webtech.dto;
 
+import htw_berlin.webtech.domain.JobPosting;
 import htw_berlin.webtech.domain.enums.DegreeLevel;
 import htw_berlin.webtech.domain.enums.EmploymentType;
 import htw_berlin.webtech.domain.enums.Industry;
@@ -7,13 +8,11 @@ import htw_berlin.webtech.domain.enums.WorkTime;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class JobPostingDto {
     private Long id;
     private String title;
@@ -29,6 +28,20 @@ public class JobPostingDto {
     private Industry industry;
     private CompanyDto company;
 
-
+    public JobPostingDto(JobPosting posting) {
+        this.id = posting.getId();
+        this.title = posting.getTitle();
+        this.skills = new ArrayList<>(posting.getSkills());
+        this.languages = new ArrayList<>(posting.getLanguages());
+        this.minDegree = posting.getMinDegree();
+        this.expectedSalary = posting.getExpectedSalary();
+        this.location = posting.getLocation();
+        this.remoteAllowed = posting.isRemoteAllowed();
+        this.requiresExperience = posting.isRequiresExperience();
+        this.employmentType = posting.getEmploymentType();
+        this.workTime = posting.getWorkTime();
+        this.industry = posting.getIndustry();
+        this.company = new CompanyDto(posting.getCompany());
+    }
 
 }
