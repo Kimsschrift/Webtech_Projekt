@@ -20,8 +20,10 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+
+
 @RestController
-@RequestMapping("/api/jobpostings")
+@RequestMapping("/domain/jobpostings")
 public class JobPostingController {
 
     private final JobPostingService jobPostingService;
@@ -41,10 +43,17 @@ public class JobPostingController {
         return ResponseEntity.ok(postings);
     }
 
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<JobPostingDto> fetchJobPostingById(@PathVariable Long id) {
+        var posting = jobPostingService.findById(id);
+        return posting != null? ResponseEntity.ok(posting) : ResponseEntity.notFound().build();
+    }
+
+
     @PostMapping
     public ResponseEntity<Void> createJobPosting(@RequestBody JobPostingCreateRequest request) throws URISyntaxException {
         JobPostingDto created = jobPostingService.create(request);
-        URI uri = new URI("/api/jobpostings/" + created.getId());
+        URI uri = new URI("/jobpostings/" + created.getId());
         return ResponseEntity.created(uri).build();
     }
 

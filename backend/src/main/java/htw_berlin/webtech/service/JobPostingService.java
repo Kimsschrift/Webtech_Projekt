@@ -38,6 +38,14 @@ public class JobPostingService {
                 .toList();
     }
 
+    @Transactional
+    public JobPostingDto findById(Long id) {
+        return jobPostingRepository.findById(id)
+                .map(JobPostingDto::new)
+                .orElse(null);
+    }
+
+
     public JobPostingDto create(JobPostingCreateRequest request) {
         JobPosting jobPostingEntity = new JobPosting();
         jobPostingEntity.setTitle(request.getTitle());
