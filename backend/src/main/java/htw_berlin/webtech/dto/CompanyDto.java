@@ -3,6 +3,8 @@ package htw_berlin.webtech.dto;
 import htw_berlin.webtech.domain.Company;
 import lombok.*;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class CompanyDto {
@@ -20,5 +22,16 @@ public class CompanyDto {
         this.legalForm = company.getLegalForm();
         this.website = company.getWebsite();
         this.contactEmail = company.getContactEmail();
+    }
+
+    public Company toEntity() {
+        Company company = new Company();
+        company.setId(this.id);
+        company.setName(this.name);
+        company.setAddress(this.address);
+        company.setLegalForm(this.legalForm);
+        company.setWebsite(this.website);
+        company.setContactEmail(this.contactEmail);
+        return company;
     }
 }

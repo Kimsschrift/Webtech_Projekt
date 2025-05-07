@@ -1,21 +1,34 @@
-package htw_berlin.webtech.dto;
+package htw_berlin.webtech.domain;
 
-import htw_berlin.webtech.domain.JobPosting;
 import htw_berlin.webtech.domain.enums.DegreeLevel;
 import htw_berlin.webtech.domain.enums.EmploymentType;
 import htw_berlin.webtech.domain.enums.Industry;
 import htw_berlin.webtech.domain.enums.WorkTime;
-import lombok.*;
+import htw_berlin.webtech.dto.CompanyDto;
+import htw_berlin.webtech.dto.JobPostingDto;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
+
+/**
+ * Diese Klasse dient dazu, bei Stellenausschreibungen
+ * auf der Website die von der Firma angebotenen Leistungen
+ * und die Anforderungen an Bewerber zu erfassen und in der Datenbank zu speichern.
+ * **/
+
+
+
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-public class JobPostingDto {
+public class JobPostingCreateRequest {
     private Long id;
     private String title;
     private List<String> skills;
@@ -30,7 +43,7 @@ public class JobPostingDto {
     private Industry industry;
     private CompanyDto company;
 
-    public JobPostingDto(JobPosting posting) {
+    public JobPostingCreateRequest(JobPosting posting) {
         this.id = posting.getId();
         this.title = posting.getTitle();
         this.skills = new ArrayList<>(posting.getSkills());
@@ -45,5 +58,4 @@ public class JobPostingDto {
         this.industry = posting.getIndustry();
         this.company = new CompanyDto(posting.getCompany());
     }
-
 }

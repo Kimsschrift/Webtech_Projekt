@@ -2,6 +2,7 @@ package htw_berlin.webtech.controller;
 
 
 import htw_berlin.webtech.domain.JobPosting;
+import htw_berlin.webtech.domain.JobPostingCreateRequest;
 import htw_berlin.webtech.domain.enums.EmploymentType;
 import htw_berlin.webtech.domain.enums.WorkTime;
 import htw_berlin.webtech.domain.enums.Industry;
@@ -13,10 +14,10 @@ import htw_berlin.webtech.service.JobPostingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.batch.BatchProperties;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -39,4 +40,12 @@ public class JobPostingController {
         }
         return ResponseEntity.ok(postings);
     }
+
+    @PostMapping
+    public ResponseEntity<Void> createJobPosting(@RequestBody JobPostingCreateRequest request) throws URISyntaxException {
+        JobPostingDto created = jobPostingService.create(request);
+        URI uri = new URI("/api/jobpostings/" + created.getId());
+        return ResponseEntity.created(uri).build();
+    }
+
 }
