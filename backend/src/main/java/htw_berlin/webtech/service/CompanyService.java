@@ -57,4 +57,12 @@ public class CompanyService {
         Company saved = companyRepository.save(companyEntity);
         return new CompanyDto(saved);
     }
+
+    public boolean deleteById(long id) {
+        if (!companyRepository.existsById(id)) {
+            return false;
+        }
+        jobPostingRepository.deleteById(id);
+        return true;
+    }
 }

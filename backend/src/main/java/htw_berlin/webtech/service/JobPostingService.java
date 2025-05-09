@@ -91,4 +91,14 @@ public class JobPostingService {
         JobPosting saved = jobPostingRepository.save(jobPostingEntity);
         return new JobPostingDto(jobPostingEntity);
     }
+
+    public boolean deleteById(Long id) {
+        if (!jobPostingRepository.existsById(id)) {
+            return false;
+        }
+
+        jobPostingRepository.deleteById(id);
+        return true;
+
+    }
 }
