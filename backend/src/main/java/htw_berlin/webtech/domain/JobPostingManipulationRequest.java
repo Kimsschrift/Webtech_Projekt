@@ -5,7 +5,6 @@ import htw_berlin.webtech.domain.enums.EmploymentType;
 import htw_berlin.webtech.domain.enums.Industry;
 import htw_berlin.webtech.domain.enums.WorkTime;
 import htw_berlin.webtech.dto.CompanyDto;
-import htw_berlin.webtech.dto.JobPostingDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +27,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class JobPostingCreateRequest {
+public class JobPostingManipulationRequest {
     private Long id;
     private String title;
     private List<String> skills;
@@ -43,7 +42,7 @@ public class JobPostingCreateRequest {
     private Industry industry;
     private CompanyDto company;
 
-    public JobPostingCreateRequest(JobPosting posting) {
+    public JobPostingManipulationRequest(JobPosting posting) {
         this.id = posting.getId();
         this.title = posting.getTitle();
         this.skills = new ArrayList<>(posting.getSkills());

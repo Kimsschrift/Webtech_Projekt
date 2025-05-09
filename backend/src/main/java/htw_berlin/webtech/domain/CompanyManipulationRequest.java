@@ -17,7 +17,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CompanyCreateRequest {
+public class CompanyManipulationRequest {
     private Long id;
     private String name;
     private String address;

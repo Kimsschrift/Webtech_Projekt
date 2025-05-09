@@ -1,10 +1,8 @@
 package htw_berlin.webtech.service;
 
 import htw_berlin.webtech.domain.Company;
-import htw_berlin.webtech.domain.CompanyCreateRequest;
-import htw_berlin.webtech.domain.JobPosting;
+import htw_berlin.webtech.domain.CompanyManipulationRequest;
 import htw_berlin.webtech.dto.CompanyDto;
-import htw_berlin.webtech.dto.JobPostingDto;
 import htw_berlin.webtech.repository.CompanyRepository;
 import htw_berlin.webtech.repository.JobPostingRepository;
 import org.springframework.stereotype.Service;
@@ -32,15 +30,31 @@ public class CompanyService {
     }
 
 
-    public Company createCompany(CompanyCreateRequest request) {
-        Company company = new Company();
-        company.setName(request.getName());
-        company.setAddress(request.getAddress());
-        company.setLegalForm(request.getLegalForm());
-        company.setWebsite(request.getWebsite());
-        company.setContactEmail(request.getContactEmail());
+    public CompanyDto createCompany(CompanyManipulationRequest request) {
+        Company companyEntity = new Company();
+        companyEntity.setName(request.getName());
+        companyEntity.setAddress(request.getAddress());
+        companyEntity.setLegalForm(request.getLegalForm());
+        companyEntity.setWebsite(request.getWebsite());
+        companyEntity.setContactEmail(request.getContactEmail());
 
+        Company saved = companyRepository.save(companyEntity);
+        return new CompanyDto(saved);
+    }
 
-        return companyRepository.save(company);
+    public CompanyDto update(Long id, CompanyManipulationRequest request) {
+        var companyEntityOptional = companyRepository.findById(id);
+        if (companyEntityOptional.isEmpty()) {
+            return null;
+        }
+        var companyEntity = companyEntityOptional.get();
+        companyEntity.setName(request.getName());
+        companyEntity.setAddress(request.getAddress());
+        companyEntity.setLegalForm(request.getLegalForm());
+        companyEntity.setWebsite(request.getWebsite());
+        companyEntity.setContactEmail(request.getContactEmail());
+
+        Company saved = companyRepository.save(companyEntity);
+        return new CompanyDto(saved);
     }
 }
