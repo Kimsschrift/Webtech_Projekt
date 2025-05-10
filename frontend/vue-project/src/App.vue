@@ -1,10 +1,13 @@
 <template>
-  <div>
-    <h1>Willkommen bei KarriereHub!</h1>
-    <JobList />
-  </div>
+  <StartseitePage />
 </template>
 
-<script setup>
-import JobList from './components/JobList.vue'
+<script>
+import StartseitePage from './components/StartseitePage.vue'
+
+export default {
+  components: {
+    StartseitePage
+  }
+}
 </script>
