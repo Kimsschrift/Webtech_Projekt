@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <header class="navbar">
-      <div class = "logo-box">
-        <img :src="logo" alt="Karrierehub Logo" class = "logo-banner">
+      <div class="logo-box">
+        <img :src="logo" alt="Karrierehub Logo" class="logo-banner">
       </div>
     </header>
 
@@ -25,6 +25,13 @@
           </div>
         </div>
       </div>
+
+
+      <div class="job-link-container">
+        <router-link to="/jobs" class="job-link-button">
+          🔍 Offene Stellenanzeigen ansehen
+        </router-link>
+      </div>
     </main>
 
     <footer class="footer">
@@ -32,12 +39,6 @@
     </footer>
   </div>
 </template>
-
-
-
-
-
-
 
 <script>
 import Logo from '@/assets/KarrierehubLogo.png'
@@ -51,16 +52,6 @@ export default {
   }
 }
 </script>
-
-
-
-
-
-
-
-
-
-
 
 <style scoped>
 #app {
@@ -78,7 +69,6 @@ export default {
   z-index: -1;
 }
 
-
 .navbar {
   background-color: #1a73e8;
   text-align: center;
@@ -87,45 +77,44 @@ export default {
 
 .logo-box {
   background-color: white;
-  padding: 0;
-  height: 210px;
+  padding: 1.5rem 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: auto;
 }
 
 .logo-banner {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-
-}
-
-.main-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 3rem 1rem;
+  width: 60%;
+  max-width: 210px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
 .access-panels {
   display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
   justify-content: center;
-  width: 100%;
-  max-width: 1000px;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
 }
 
 .panel {
-  flex: 1 1 300px;
-  background-color: #eef2f7;
+  background: white;
+  border-left: 5px solid #1a73e8;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
   padding: 2rem;
-  border-radius: 8px;
-  text-align: center;
-  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  border-radius: 12px;
+  min-width: 300px;
 }
+
+.main-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 1rem;
+}
+
 
 .panel h2 {
   margin-bottom: 1rem;
@@ -152,6 +141,27 @@ export default {
 
 .button-group .secondary {
   background-color: #4285f4;
+}
+
+
+.job-link-container {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.job-link-button {
+  display: inline-block;
+  background-color: #1a73e8;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.job-link-button:hover {
+  background-color: #0d5cc0;
 }
 
 .footer {

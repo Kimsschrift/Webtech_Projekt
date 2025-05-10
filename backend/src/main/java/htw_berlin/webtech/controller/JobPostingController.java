@@ -12,7 +12,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/domain/jobpostings")
 public class JobPostingController {

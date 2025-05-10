@@ -10,6 +10,7 @@ import htw_berlin.webtech.service.CompanyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/domain/companies")
 public class CompanyController {
