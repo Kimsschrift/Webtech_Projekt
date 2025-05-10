@@ -34,20 +34,6 @@ Unternehmen wiederum können effizient Kandidat:innen mit passenden Qualifikatio
 | Build & CI/CD | Gradle, GitHub Actions, Docker               |
 | Deployment    | Render.com (Backend & Frontend getrennt)     |
 
-## 📁 Projektstruktur
-
-Webtech_Projekt/
-├── backend/ # Spring Boot REST-API
-│ ├── controller/ # REST-Endpunkte für Jobs & Unternehmen
-│ ├── domain/ # Entitäten & Enums
-│ ├── dto/ # Daten-Transfer-Objekte
-│ ├── repository/ # JPA-Repositories
-│ └── service/ # Business-Logik
-├── frontend/vue-project/ # Vue 3 SPA
-│ ├── components/ # UI-Komponenten inkl. FilterSidebar & Startseite
-│ ├── views/ # JobListView & JobDetailView
-│ └── router/ # Vue Router Konfiguration
-
 
 ## 🚀 Lokale Entwicklung
 
@@ -68,21 +54,6 @@ Webtech_Projekt/
 | GET     | `/api/jobpostings/{id}` | Details zu einer Anzeige |
 | POST    | `/api/jobpostings`      | Neues Jobposting anlegen |
 | DELETE  | `/api/jobpostings/{id}` | Anzeige löschen          |
-
-
-
-
-### Backend starten
-```bash
-cd backend
-./gradlew bootRun
-
-### Frontend starten
-
-```bash
-cd frontend/vue-project
-npm install
-npm run dev
 
 
 # CI/CD
