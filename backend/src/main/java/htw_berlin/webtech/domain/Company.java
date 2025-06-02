@@ -1,6 +1,7 @@
 package htw_berlin.webtech.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
@@ -26,7 +27,21 @@ public class Company {
 
     private String website;
 
+    @Email
     private String contactEmail;
+
+    private String phoneNumber;
+
+    private Integer foundedYear;
+
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
+    private String logoUrl;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private AppUser user;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<JobPosting> jobPostings = new ArrayList<>();

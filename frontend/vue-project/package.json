@@ -41,5 +41,10 @@
     "last 2 versions",
     "not dead",
     "not ie 11"
-  ]
+  ],
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "backend": "cd ../../backend && gradlew.bat bootRun",
+    "dev": "concurrently \"npm run serve\" \"npm run backend\""
+  }
 }

@@ -72,4 +72,18 @@ public class JobPosting {
     @JoinColumn(name = "company_id", nullable = false, referencedColumnName = "id")
     @NotNull
     private Company company;
+
+
+    // für DetailJobpostings
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
+    @Column(columnDefinition = "TEXT")
+    private String taskArea;
+
+    @Column(columnDefinition = "TEXT")
+    private String userProfile;
+
+    @Column(columnDefinition = "TEXT")
+    private String benefits;
 }
