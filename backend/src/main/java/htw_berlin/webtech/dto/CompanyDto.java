@@ -21,7 +21,7 @@ public class CompanyDto {
         this.address = company.getAddress();
         this.legalForm = company.getLegalForm();
         this.website = company.getWebsite();
-        this.contactEmail = company.getContactEmail();
+        this.contactEmail = company.getEmail();
     }
 
     public Company toEntity() {
@@ -31,7 +31,7 @@ public class CompanyDto {
         company.setAddress(this.address);
         company.setLegalForm(this.legalForm);
         company.setWebsite(this.website);
-        company.setContactEmail(this.contactEmail);
+        company.setEmail(this.contactEmail);
         return company;
     }
 }

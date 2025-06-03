@@ -1,12 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import StartseitePage from "@/components/StartseitePage.vue";
-import JobListView from "@/views/JobListView.vue";
-import JobDetailView from "@/views/JobDetailView.vue";
+import StartseitePage from '@/components/StartseitePage.vue'
+import JobListView from '@/views/JobListView.vue'
+import JobDetailView from '@/views/JobDetailView.vue'
+import CompanyRegisterView from '@/views/CompanyRegisterView.vue'
+import ApplicantRegisterView from '@/views/ApplicantRegisterView.vue'
 
 const routes = [
-    { path: '/', component: StartseitePage },
-    { path: '/jobs', component: JobListView },
-    { path: '/jobs/:id', component: JobDetailView }
+    { path: '/', name: 'StartseitePage', component: StartseitePage },
+    { path: '/jobs', name: 'JobListView', component: JobListView },
+    { path: '/jobs/:id', name: 'JobDetailView', component: JobDetailView },
+    { path: '/register/company', name: 'CompanyRegisterView', component: CompanyRegisterView },
+    { path: '/register/applicant', name: 'ApplicantRegisterView', component: ApplicantRegisterView },
 ]
 
 const router = createRouter({
@@ -14,4 +18,4 @@ const router = createRouter({
     routes
 })
 
-export default router;
+export default router

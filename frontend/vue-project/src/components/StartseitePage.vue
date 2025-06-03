@@ -12,7 +12,7 @@
           <h2>Für Unternehmen</h2>
           <p>Login oder Registrierung für Arbeitgeber</p>
           <div class="button-group">
-            <button>Anmelden</button>
+            <router-link to="/register/company" class="btn">Anmelden</router-link>
             <button class="secondary">Login</button>
           </div>
         </div>
@@ -20,7 +20,7 @@
           <h2>Für Bewerber</h2>
           <p>Login oder Registrierung für Jobsuchende</p>
           <div class="button-group">
-            <button>Anmelden</button>
+            <router-link to="/register/applicant" class="btn">Anmelden</router-link>
             <button class="secondary">Login</button>
           </div>
         </div>
@@ -173,4 +173,16 @@ export default {
   font-size: 0.95rem;
   line-height: 1.6;
 }
+
+.btn {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  background-color: #1a73e8;
+  color: white;
+  text-align: center;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
 </style>

@@ -28,7 +28,7 @@ public class Company {
     private String website;
 
     @Email
-    private String contactEmail;
+    private String email;
 
     private String phoneNumber;
 

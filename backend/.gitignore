@@ -2,7 +2,8 @@
 .gradle/
 **/build/
 node_modules/
-
+.env
+n
 
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/

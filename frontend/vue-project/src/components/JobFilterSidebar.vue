@@ -46,7 +46,7 @@
 
 
 
-    <div class="form-group">
+    <div class="forsm-group">
       <label>Berufsfeld:</label>
       <select v-model="filters.industry">
         <option value="">Alle</option>

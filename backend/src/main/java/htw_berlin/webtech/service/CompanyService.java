@@ -36,7 +36,7 @@ public class CompanyService {
         companyEntity.setAddress(request.getAddress());
         companyEntity.setLegalForm(request.getLegalForm());
         companyEntity.setWebsite(request.getWebsite());
-        companyEntity.setContactEmail(request.getContactEmail());
+        companyEntity.setEmail(request.getContactEmail());
 
         Company saved = companyRepository.save(companyEntity);
         return new CompanyDto(saved);
@@ -52,7 +52,7 @@ public class CompanyService {
         companyEntity.setAddress(request.getAddress());
         companyEntity.setLegalForm(request.getLegalForm());
         companyEntity.setWebsite(request.getWebsite());
-        companyEntity.setContactEmail(request.getContactEmail());
+        companyEntity.setEmail(request.getContactEmail());
 
         Company saved = companyRepository.save(companyEntity);
         return new CompanyDto(saved);
