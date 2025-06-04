@@ -1,0 +1,46 @@
+# Node & Frontend
+node_modules/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.env.local
+.env.*.local
+
+# Java & Backend
+.gradle/
+build/
+**/build/
+HELP.md
+*.mv.db
+*.trace.db
+*.class
+*.jar
+*.war
+*.iml
+
+# IDEs
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.iws
+*.ipr
+out/
+bin/
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Others
+data/
+uploads/
+
+# Exception Rules (if needed)
+!gradle/wrapper/gradle-wrapper.jar
