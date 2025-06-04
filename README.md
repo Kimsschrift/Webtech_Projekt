@@ -1,7 +1,7 @@
 # KarriereHub – WebTech Projekt SS2025
 
 ## 👥 Team
-- Dongwoo Kim
+- Dongwoo Kim.
 
 ## 💡 Projektidee
 **KarriereHub** ist eine moderne Plattform für die Jobsuche.  
