@@ -41,7 +41,7 @@ export default {
     }
   },
   mounted() {
-    axios.get('http://localhost:8080/domain/jobpostings')
+    axios.get('/api/jobpostings')
         .then(res => this.jobs = res.data);
   },
   methods: {
@@ -69,12 +69,12 @@ export default {
   border-left: 4px solid #1a73e8;
   padding: 1.5rem;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   transition: transform 0.2s ease;
-
-  .job-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
 }
+.job-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
 </style>

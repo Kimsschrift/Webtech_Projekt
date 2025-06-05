@@ -62,7 +62,7 @@ public class CompanyService {
         if (!companyRepository.existsById(id)) {
             return false;
         }
-        jobPostingRepository.deleteById(id);
+        companyRepository.deleteById(id);
         return true;
     }
 }

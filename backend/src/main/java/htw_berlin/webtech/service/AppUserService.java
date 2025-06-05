@@ -1,16 +1,15 @@
 package htw_berlin.webtech.service;
 
-import htw_berlin.webtech.config.SecurityConfig;
 import htw_berlin.webtech.domain.AppUser;
 import htw_berlin.webtech.domain.Applicant;
 import htw_berlin.webtech.domain.Company;
 import htw_berlin.webtech.domain.enums.UserRole;
 import htw_berlin.webtech.dto.AppUserDto;
-import htw_berlin.webtech.dto.CompanyDto;
 import htw_berlin.webtech.dto.RegistrationRequest;
 import htw_berlin.webtech.repository.AppUserRepository;
 import htw_berlin.webtech.repository.ApplicantRepository;
 import htw_berlin.webtech.repository.CompanyRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +21,7 @@ public class AppUserService {
     private final AppUserRepository appUserRepository;
     private final CompanyRepository companyRepository;
     private final ApplicantRepository applicantRepository;
-    private final SecurityConfig passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     public void registerUser(RegistrationRequest request) {
         if (appUserRepository.existsByEmail(request.getEmail())) {
@@ -31,7 +30,7 @@ public class AppUserService {
 
         AppUser user = AppUser.builder()
                 .email(request.getEmail())
-                .password(passwordEncoder.passwordEncoder().encode(request.getPassword()))
+                .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
                 .enabled(true)
                 .build();

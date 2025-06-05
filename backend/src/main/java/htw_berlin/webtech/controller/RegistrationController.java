@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/domain/register")
+@RequestMapping("/api/register")
 @RequiredArgsConstructor
 public class RegistrationController {
 

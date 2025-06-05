@@ -46,7 +46,7 @@
 
 
 
-    <div class="forsm-group">
+    <div class="form-group">
       <label>Berufsfeld:</label>
       <select v-model="filters.industry">
         <option value="">Alle</option>
@@ -177,7 +177,7 @@ input, select {
   transition: border-color 0.3s;
 }
 
-input:focus, selct:focus {
+input:focus, select:focus {
   border-color: #1a73e8;
   outline: none;
   box-shadow: 0 0 4px rgba(26, 115, 232, 0.3);

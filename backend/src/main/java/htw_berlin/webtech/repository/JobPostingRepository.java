@@ -9,5 +9,4 @@ import java.util.List;
 @Repository
 public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
 
-    List<JobPosting> findAllBytitle(String title);
 }

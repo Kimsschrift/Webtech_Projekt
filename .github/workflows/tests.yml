@@ -17,5 +17,5 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x gradlew
 
-      - name: Run tests in backend directory
+      - name: Run tests
         run: ./gradlew clean test --info --stacktrace

@@ -14,7 +14,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/domain/jobpostings")
+@RequestMapping("/api/jobpostings")
 public class JobPostingController {
 
     private final JobPostingService jobPostingService;
@@ -44,17 +44,17 @@ public class JobPostingController {
     @PostMapping
     public ResponseEntity<Void> createJobPosting(@RequestBody JobPostingManipulationRequest request) throws URISyntaxException {
         JobPostingDto created = jobPostingService.create(request);
-        URI uri = new URI("/jobpostings/" + created.getId());
+        URI uri = new URI("/api/jobpostings/" + created.getId());
         return ResponseEntity.created(uri).build();
     }
 
-    @PutMapping(path = "/update/{id}")
+    @PutMapping(path = "/{id}")
     public ResponseEntity<JobPostingDto> updateJobPosting(@PathVariable Long id, @RequestBody JobPostingManipulationRequest request) {
         var posting = jobPostingService.update(id, request);
         return posting != null? ResponseEntity.ok(posting) : ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping(path = "/delete/{id}")
+    @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> deleteJobPosting(@PathVariable Long id) {
         boolean successful = jobPostingService.deleteById(id);
         return successful ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();

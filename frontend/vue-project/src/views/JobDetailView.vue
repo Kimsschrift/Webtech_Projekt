@@ -24,7 +24,7 @@ export default {
   },
   mounted() {
     const id = this.$route.params.id;
-    axios.get(`http://localhost:8080/domain/jobpostings/${id}`)
+    axios.get(`/api/jobpostings/${id}`)
         .then(res => this.job = res.data)
         .catch(err => console.error('Fehler beim Laden:', err))
   }

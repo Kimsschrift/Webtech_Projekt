@@ -62,7 +62,7 @@ export default {
       }
 
       try {
-        await axios.post('/domain/register', formData, {
+        await axios.post('/api/register', formData, {
           headers: { 'Content-Type': 'multipart/form-data' }
         })
         alert("Registrierung erfolgreich!")

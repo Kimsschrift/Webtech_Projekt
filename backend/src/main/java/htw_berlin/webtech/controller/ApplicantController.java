@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/domain/applicants")
+@RequestMapping("/api/applicants")
 @RequiredArgsConstructor
 public class ApplicantController {
 
@@ -35,7 +35,7 @@ public class ApplicantController {
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping(path = "/update/{id}")
+    @PutMapping(path = "/{id}")
     public ResponseEntity<ApplicantDto> updateApplicant(@PathVariable Long id, @RequestBody ApplicantManipulationRequest request) {
         var applicant = applicantService.update(id, request);
         return applicant != null? ResponseEntity.ok(applicant) : ResponseEntity.notFound().build();

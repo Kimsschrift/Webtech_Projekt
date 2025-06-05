@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/domain/companies")
+@RequestMapping("/api/companies")
 public class CompanyController {
 
     private final CompanyService companyService;
@@ -33,13 +33,13 @@ public class CompanyController {
         return company != null? ResponseEntity.ok(company) : ResponseEntity.notFound().build();
     }
 
-    @PutMapping(path = "/update/{id}")
+    @PutMapping(path = "/{id}")
     public ResponseEntity<CompanyDto> updateCompany(@PathVariable Long id, @RequestBody CompanyManipulationRequest request) {
         var company = companyService.update(id, request);
         return company != null? ResponseEntity.ok(company) : ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping(path = "/delete/{id}")
+    @DeleteMapping(path = "/{id}")
     public ResponseEntity<CompanyDto> deleteCompany(@PathVariable Long id) {
         boolean successful = companyService.deleteById(id);
         return successful ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();

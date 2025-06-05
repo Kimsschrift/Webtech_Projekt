@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/domain/appUser")
+@RequestMapping("/api/appUsers")
 @RequiredArgsConstructor
 public class AppUserController {
 
     private final AppUserService appUserService;
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Long> deleteUser(@PathVariable Long id) {
         boolean successful = appUserService.deleteById(id);
         return successful ? ResponseEntity.ok(id) : ResponseEntity.notFound().build();

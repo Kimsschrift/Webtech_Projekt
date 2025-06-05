@@ -32,7 +32,7 @@ export default {
     }
   },
   mounted() {
-    axios.get('http://localhost:8080/domain/jobpostings')
+    axios.get('/api/jobpostings')
         .then(response => {
           this.jobs = response.data
         })

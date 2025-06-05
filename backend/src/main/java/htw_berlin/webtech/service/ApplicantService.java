@@ -1,6 +1,5 @@
 package htw_berlin.webtech.service;
 
-import htw_berlin.webtech.config.SecurityConfig;
 import htw_berlin.webtech.domain.Applicant;
 import htw_berlin.webtech.domain.ApplicantManipulationRequest;
 import htw_berlin.webtech.domain.Company;
@@ -17,10 +16,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ApplicantService {
 
-    private final AppUserRepository appUserRepository;
-    private final CompanyRepository companyRepository;
+
     private final ApplicantRepository applicantRepository;
-    private final SecurityConfig passwordEncoder;
 
     public ApplicantDto update(Long id, ApplicantManipulationRequest request) {
         var applicant = applicantRepository.findById(id);
