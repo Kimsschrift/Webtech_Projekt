@@ -3,13 +3,18 @@ package htw_berlin.webtech.dto;
 import htw_berlin.webtech.domain.enums.UserRole;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDate;
 
 @Getter
 @Setter
 public class RegistrationRequest {
+    @NotBlank
+    @Email
     private String email;
+    @NotBlank
     private String password;
     private UserRole role;
 

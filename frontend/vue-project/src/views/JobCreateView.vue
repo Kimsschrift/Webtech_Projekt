@@ -5,7 +5,7 @@
       <input v-model="form.title" placeholder="Titel" required />
       <input v-model="skills" placeholder="Skills (comma separated)" />
       <input v-model="languages" placeholder="Sprachen (comma separated)" />
-      <input v-model.number="form.expectedSalary" type="number" placeholder="Gehalt" />
+      <input v-model.number="form.expectedSalary" type="number" placeholder="Gehalt in €" />
       <input v-model="form.location" placeholder="Ort" />
       <select v-model="form.minDegree">
         <option disabled value="">Abschluss</option>

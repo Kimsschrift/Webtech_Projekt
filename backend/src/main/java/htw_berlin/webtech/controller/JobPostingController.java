@@ -55,9 +55,10 @@ public class JobPostingController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> deleteJobPosting(@PathVariable Long id) {
-        boolean successful = jobPostingService.deleteById(id);
-        return successful ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    public ResponseEntity<Void> deleteJobPosting(@PathVariable Long id,
+                                                 @RequestHeader("X-Company-Id") Long companyId) {
+        boolean successful = jobPostingService.deleteById(id, companyId);
+        return successful ? ResponseEntity.ok().build() : ResponseEntity.status(403).build();
     }
 
 

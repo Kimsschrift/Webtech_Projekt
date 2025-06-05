@@ -13,7 +13,9 @@ Unternehmen wiederum können effizient Kandidat:innen mit passenden Qualifikatio
 ### 👤 Für Unternehmen
 - Registrierung und Verwaltung eines Firmenprofils
 - Anlegen, Bearbeiten und Löschen von Stellenanzeigen
+- Eigenen Account entfernen 
 - Angabe von Anforderungen: Abschluss, Skills, Sprache, Berufserfahrung etc.
+
 
 ### 🔍 Für Bewerber:innen
 - Durchsuchbare Joblisten mit:
@@ -23,6 +25,7 @@ Unternehmen wiederum können effizient Kandidat:innen mit passenden Qualifikatio
     - Studienrichtung und Tech-Skills
 - Dynamisches Filtern über Sidebar-Komponente (`JobFilterSidebar.vue`)
 - Detailansicht zu jedem Jobposting
+- Accountlöschung für Bewerber
 
 ## 🖥️ Tech Stack
 
@@ -54,7 +57,7 @@ Unternehmen wiederum können effizient Kandidat:innen mit passenden Qualifikatio
 | GET     | `/api/jobpostings/{id}` | Details zu einer Anzeige |
 | POST    | `/api/jobpostings`      | Neues Jobposting anlegen |
 | DELETE  | `/api/jobpostings/{id}` | Anzeige löschen          |
-
+| DELETE  | `/api/appUsers/{id}`    | Account löschen          |
 
 # CI/CD
 

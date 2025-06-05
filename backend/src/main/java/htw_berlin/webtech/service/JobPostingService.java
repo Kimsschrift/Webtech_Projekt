@@ -92,13 +92,14 @@ public class JobPostingService {
         return new JobPostingDto(jobPostingEntity);
     }
 
-    public boolean deleteById(Long id) {
-        if (!jobPostingRepository.existsById(id)) {
-            return false;
-        }
-
-        jobPostingRepository.deleteById(id);
-        return true;
+    public boolean deleteById(Long id, Long companyId) {
+        return jobPostingRepository.findById(id)
+                .filter(post -> post.getCompany().getId().equals(companyId))
+                .map(post -> {
+                    jobPostingRepository.delete(post);
+                    return true;
+                })
+                .orElse(false);
 
     }
 }

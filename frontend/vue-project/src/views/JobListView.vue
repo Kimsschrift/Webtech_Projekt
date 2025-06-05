@@ -2,12 +2,18 @@
   <div class="job-list-page">
     <JobFilterSidebar @apply-filters="applyFilters" />
     <div class="job-list">
-      <button v-if="isCompany" class="create-btn" @click="$router.push('/jobs/new')">Neue Stelle</button>
+      <div class="top-actions">
+
+        <button v-if="isCompany" class="create-btn" @click="$router.push('/jobs/new')">Neue Stelle</button>
+        <button v-if="loggedIn" class="delete-account" @click="deleteAccount">Account löschen</button>
+      </div>
+
       <div v-for="job in filteredJobs" :key="job.id" @click="goToDetail(job.id)" class="job-card">
         <h3>{{ job.title }}</h3>
         <p>{{ job.location }} | {{ job.company?.name }} | {{ job.workTime }}</p>
         <p>Sprache: {{ job.languages.join(', ') }}</p>
         <p>Gehalt: €{{ job.expectedSalary }}</p>
+        <button v-if="canDelete(job)" class="delete-btn" @click.stop="deleteJob(job.id)">Löschen</button>
       </div>
     </div>
   </div>
@@ -24,7 +30,8 @@ export default {
     return {
       jobs: [],
       activeFilters: {},
-      isCompany: false
+      isCompany: false,
+      loggedIn: false
     }
   },
   computed: {
@@ -47,6 +54,7 @@ export default {
         .then(res => this.jobs = res.data);
     const user = JSON.parse(localStorage.getItem('user') || '{}')
     this.isCompany = user.role === 'COMPANY'
+    this.loggedIn = !!user.userId
   },
   methods: {
     applyFilters(filters) {
@@ -54,6 +62,29 @@ export default {
     },
     goToDetail(id) {
       this.$router.push(`/jobs/${id}`);
+    },
+    canDelete(job) {
+      const user = JSON.parse(localStorage.getItem('user') || '{}')
+      return user.role === 'COMPANY' && user.companyId === job.company.id
+    },
+    async deleteJob(id) {
+      const user = JSON.parse(localStorage.getItem('user') || '{}')
+      try {
+        await axios.delete(`/api/jobpostings/${id}`, { headers: { 'X-Company-Id': user.companyId } })
+        this.jobs = this.jobs.filter(j => j.id !== id)
+      } catch (e) {
+        alert('Löschen fehlgeschlagen')
+      }
+    },
+    async deleteAccount() {
+      const user = JSON.parse(localStorage.getItem('user') || '{}')
+      try {
+        await axios.delete(`/api/appUsers/${user.userId}`, { headers: { 'X-User-Id': user.userId } })
+        localStorage.removeItem('user')
+        this.$router.push('/')
+      } catch (e) {
+        alert('Account konnte nicht gelöscht werden')
+      }
     }
   }
 }
@@ -90,5 +121,31 @@ export default {
   cursor: pointer;
   border-radius: 5px;
 }
+
+.top-actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.delete-btn {
+  background: #e53935;
+  border: none;
+  color: white;
+  padding: 0.3rem 0.6rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.delete-account {
+  background: #e53935;
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
 
 </style>

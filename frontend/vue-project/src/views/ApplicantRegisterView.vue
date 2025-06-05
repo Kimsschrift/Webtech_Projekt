@@ -2,7 +2,7 @@
   <div class="register-container">
     <h2>Bewerber Registrierung</h2>
     <form @submit.prevent="submitForm" enctype="multipart/form-data">
-      <input v-model="form.email" placeholder="Email" required />
+      <input v-model="form.email" type="email" placeholder="Email" required />
       <input v-model="form.password" type="password" placeholder="Passwort" required />
       <input v-model="form.applicantName" placeholder="Name" />
       <input v-model="form.applicantPhoneNumber" placeholder="Telefonnummer" />

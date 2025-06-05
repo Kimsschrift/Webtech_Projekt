@@ -2,7 +2,7 @@
   <div class="login-container">
     <h2>Login</h2>
     <form @submit.prevent="submit">
-      <input v-model="form.email" placeholder="Email" required />
+      <input v-model="form.email" type="email" placeholder="Email" required />
       <input v-model="form.password" type="password" placeholder="Passwort" required />
       <button type="submit">Einloggen</button>
     </form>
@@ -23,7 +23,11 @@ export default {
       try {
         const res = await axios.post('/api/login', this.form)
         localStorage.setItem('user', JSON.stringify(res.data))
-        this.$router.push('/jobs')
+        if (res.data.role === 'COMPANY') {
+          this.$router.push('/company')
+        } else {
+          this.$router.push('/jobs')
+        }
       } catch (e) {
         alert('Login fehlgeschlagen')
       }

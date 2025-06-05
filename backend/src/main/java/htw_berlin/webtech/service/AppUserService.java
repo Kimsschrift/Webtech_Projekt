@@ -78,10 +78,14 @@ public class AppUserService {
         return new AppUserDto(user.getId(), user.getRole());
     }
 
-    public boolean deleteById(Long id) {
+    public boolean deleteById(Long id, Long requestingUserId) {
+        if (!id.equals(requestingUserId)) {
+            return false;
+        }
         if (!appUserRepository.existsById(id)) {
             return false;
         }
+
         appUserRepository.deleteById(id);
         return true;
     }

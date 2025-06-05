@@ -6,8 +6,9 @@ import htw_berlin.webtech.service.FileStorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import jakarta.validation.Valid;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -19,7 +20,11 @@ public class RegistrationController {
     private final FileStorageService fileStorageService;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> register(@ModelAttribute RegistrationRequest request) {
+    public ResponseEntity<String> register(@Valid @ModelAttribute RegistrationRequest request,
+                                           BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body("Ungültige Eingabedaten");
+        }
         try {
             // ==== COMPANY Files ====
             if (request.getLogoFile() != null && !request.getLogoFile().isEmpty()) {
