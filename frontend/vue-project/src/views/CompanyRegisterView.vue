@@ -2,10 +2,9 @@
   <div class="register-container">
     <h2>Unternehmen Registrierung</h2>
     <form @submit.prevent="submitForm" enctype="multipart/form-data">
-      <input v-model="form.username" placeholder="Benutzername" required />
+      <input v-model="form.email" placeholder="Email" required />
       <input v-model="form.password" type="password" placeholder="Passwort" required />
       <input v-model="form.companyName" placeholder="Firmenname" />
-      <input v-model="form.companyEmail" placeholder="Kontakt Email" />
       <input v-model="form.website" placeholder="Website" />
 
       <select v-model="form.industry">
@@ -47,7 +46,7 @@ export default {
   data() {
     return {
       form: {
-        username: '',
+        email: '',
         password: '',
         role: 'COMPANY',
         companyName: '',

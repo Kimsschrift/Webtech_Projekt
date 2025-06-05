@@ -13,7 +13,7 @@
           <p>Login oder Registrierung für Arbeitgeber</p>
           <div class="button-group">
             <router-link to="/register/company" class="btn">Anmelden</router-link>
-            <button class="secondary">Login</button>
+            <router-link to="/login" class="btn secondary">Login</router-link>
           </div>
         </div>
         <div class="panel">
@@ -21,7 +21,7 @@
           <p>Login oder Registrierung für Jobsuchende</p>
           <div class="button-group">
             <router-link to="/register/applicant" class="btn">Anmelden</router-link>
-            <button class="secondary">Login</button>
+            <router-link to="/login" class="btn secondary">Login</router-link>
           </div>
         </div>
       </div>

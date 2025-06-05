@@ -2,10 +2,9 @@
   <div class="register-container">
     <h2>Bewerber Registrierung</h2>
     <form @submit.prevent="submitForm" enctype="multipart/form-data">
-      <input v-model="form.username" placeholder="Benutzername" required />
+      <input v-model="form.email" placeholder="Email" required />
       <input v-model="form.password" type="password" placeholder="Passwort" required />
       <input v-model="form.applicantName" placeholder="Name" />
-      <input v-model="form.applicantEmail" placeholder="Email" />
       <input v-model="form.applicantPhoneNumber" placeholder="Telefonnummer" />
       <input v-model="form.birthDate" type="date" lang="de" />
 
@@ -33,11 +32,10 @@ export default {
   data() {
     return {
       form: {
-        username: '',
+        email: '',
         password: '',
         role: 'APPLICANT',
         applicantName: '',
-        applicantEmail: '',
         applicantPhoneNumber: '',
         birthDate: ''
       },

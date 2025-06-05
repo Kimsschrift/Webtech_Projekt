@@ -6,6 +6,8 @@ import htw_berlin.webtech.domain.Company;
 import htw_berlin.webtech.domain.enums.UserRole;
 import htw_berlin.webtech.dto.AppUserDto;
 import htw_berlin.webtech.dto.RegistrationRequest;
+import htw_berlin.webtech.dto.LoginRequest;
+import htw_berlin.webtech.dto.LoginResponse;
 import htw_berlin.webtech.repository.AppUserRepository;
 import htw_berlin.webtech.repository.ApplicantRepository;
 import htw_berlin.webtech.repository.CompanyRepository;
@@ -82,5 +84,21 @@ public class AppUserService {
         }
         appUserRepository.deleteById(id);
         return true;
+    }
+
+    public LoginResponse login(LoginRequest request) {
+        AppUser user = appUserRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new RuntimeException("Falsche Zugangsdaten"));
+
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw new RuntimeException("Falsche Zugangsdaten");
+        }
+
+        Long companyId = companyRepository.findByUserId(user.getId())
+                .map(Company::getId).orElse(null);
+        Long applicantId = applicantRepository.findByUserId(user.getId())
+                .map(Applicant::getId).orElse(null);
+
+        return new LoginResponse(user.getId(), user.getRole(), companyId, applicantId);
     }
 }

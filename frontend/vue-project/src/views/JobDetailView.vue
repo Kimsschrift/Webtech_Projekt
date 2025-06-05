@@ -1,22 +1,15 @@
 <template>
-  <div class="job-detail" v-if="job">
-    <h2>{{ job.title }}</h2>
-    <p><strong>Ort:</strong> {{ job.location }}</p>
-    <p><strong>Firma:</strong> {{ job.company?.name }}</p>
-    <p><strong>Skills:</strong> {{ job.skills.join(', ') }}</p>
-    <p><strong>Sprachen:</strong> {{ job.languages.join(', ') }}</p>
-    <p><strong>Gehalt:</strong> €{{ job.expectedSalary }}</p>
-    <p><strong>Arbeitszeit:</strong> {{ job.workTime }}</p>
-    <p><strong>Erfahrung:</strong> {{ job.requiresExperience ? 'Ja' : 'Nein' }}</p>
-  </div>
+  <DetailJobPosting :job="job" v-if="job"/>
   <p v-else>Lade Daten...</p>
 </template>
 
 <script>
 import axios from 'axios'
+import DetailJobPosting from "@/components/DetailJobPosting.vue";
 
 export default {
   name: 'JobDetailView',
+  components: {DetailJobPosting},
   data() {
     return {
       job: null

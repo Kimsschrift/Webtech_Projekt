@@ -2,6 +2,7 @@
   <div class="job-list-page">
     <JobFilterSidebar @apply-filters="applyFilters" />
     <div class="job-list">
+      <button v-if="isCompany" class="create-btn" @click="$router.push('/jobs/new')">Neue Stelle</button>
       <div v-for="job in filteredJobs" :key="job.id" @click="goToDetail(job.id)" class="job-card">
         <h3>{{ job.title }}</h3>
         <p>{{ job.location }} | {{ job.company?.name }} | {{ job.workTime }}</p>
@@ -22,7 +23,8 @@ export default {
   data() {
     return {
       jobs: [],
-      activeFilters: {}
+      activeFilters: {},
+      isCompany: false
     }
   },
   computed: {
@@ -43,6 +45,8 @@ export default {
   mounted() {
     axios.get('/api/jobpostings')
         .then(res => this.jobs = res.data);
+    const user = JSON.parse(localStorage.getItem('user') || '{}')
+    this.isCompany = user.role === 'COMPANY'
   },
   methods: {
     applyFilters(filters) {
@@ -75,6 +79,16 @@ export default {
 .job-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.create-btn {
+  background: #1a73e8;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 </style>
