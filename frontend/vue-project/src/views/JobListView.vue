@@ -29,11 +29,14 @@ export default {
   data() {
     return {
       jobs: [],
-      activeFilters: {},
-      isCompany: false
+      activeFilters: {}
     }
   },
   computed: {
+    isCompany() {
+      const user = JSON.parse(localStorage.getItem('user') || '{}')
+      return user.role === 'COMPANY'
+    },
     filteredJobs() {
       return this.jobs.filter(job => {
         const f = this.activeFilters;
@@ -51,8 +54,6 @@ export default {
   mounted() {
     axios.get('/api/jobpostings')
         .then(res => this.jobs = res.data);
-    const user = JSON.parse(localStorage.getItem('user') || '{}')
-    this.isCompany = user.role === 'COMPANY'
   },
   methods: {
     applyFilters(filters) {
