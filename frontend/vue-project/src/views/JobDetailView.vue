@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <DetailJobPosting :job="job" v-if="job"/>
+  <div class="job-detail-wrapper">
     <button v-if="showDelete" class="delete-btn" @click="deleteJob">Löschen</button>
+    <DetailJobPosting :job="job" v-if="job"/>
     <p v-if="!job">Lade Daten...</p>
   </div>
 </template>
@@ -44,6 +44,9 @@ export default {
 </script>
 
 <style scoped>
+.job-detail-wrapper {
+  position: relative;
+}
 .job-detail {
   background: white;
   padding: 2rem;
@@ -55,6 +58,9 @@ export default {
 }
 
 .delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
   background: #e53935;
   border: none;
   color: white;

@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"vite\" \"npm run backend\"",
-    "backend": "cd ../../backend && gradlew.bat bootRun",
+    "dev": "concurrently \"npm run backend\" \"vite\"",
+    "backend": "cd ../../backend && ./gradlew bootRun",
     "build": "vite build",
     "serve": "vite"
   },

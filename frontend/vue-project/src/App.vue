@@ -1,4 +1,7 @@
 <template>
+  <div class="back-link">
+    <router-link to="/">Zurück zur Startseite</router-link>
+  </div>
   <router-view />
 </template>
 
@@ -16,5 +19,21 @@ body {
   margin: 0;
   padding: 0;
   color: #222;
+}
+
+.back-link {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+}
+
+.back-link a {
+  display: inline-block;
+  background: #1a73e8;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  text-decoration: none;
 }
 </style>

@@ -5,7 +5,7 @@
       <div class="top-actions">
 
         <button v-if="isCompany" class="create-btn" @click="$router.push('/jobs/new')">Neue Stelle</button>
-        <button v-if="loggedIn" class="delete-account" @click="deleteAccount">Account löschen</button>
+
       </div>
 
       <div v-for="job in filteredJobs" :key="job.id" @click="goToDetail(job.id)" class="job-card">
@@ -30,8 +30,7 @@ export default {
     return {
       jobs: [],
       activeFilters: {},
-      isCompany: false,
-      loggedIn: false
+      isCompany: false
     }
   },
   computed: {
@@ -54,7 +53,6 @@ export default {
         .then(res => this.jobs = res.data);
     const user = JSON.parse(localStorage.getItem('user') || '{}')
     this.isCompany = user.role === 'COMPANY'
-    this.loggedIn = !!user.userId
   },
   methods: {
     applyFilters(filters) {
@@ -75,16 +73,7 @@ export default {
       } catch (e) {
         alert('Löschen fehlgeschlagen')
       }
-    },
-    async deleteAccount() {
-      const user = JSON.parse(localStorage.getItem('user') || '{}')
-      try {
-        await axios.delete(`/api/appUsers/${user.userId}`, { headers: { 'X-User-Id': user.userId } })
-        localStorage.removeItem('user')
-        this.$router.push('/')
-      } catch (e) {
-        alert('Account konnte nicht gelöscht werden')
-      }
+
     }
   }
 }
@@ -100,6 +89,7 @@ export default {
   flex-grow: 1;
 }
 .job-card {
+  position: relative;
   background: white;
   border-left: 4px solid #1a73e8;
   padding: 1.5rem;
@@ -129,23 +119,15 @@ export default {
 }
 
 .delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
   background: #e53935;
   border: none;
   color: white;
   padding: 0.3rem 0.6rem;
-  margin-top: 0.5rem;
   cursor: pointer;
   border-radius: 4px;
 }
-
-.delete-account {
-  background: #e53935;
-  border: none;
-  color: white;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
 
 </style>
