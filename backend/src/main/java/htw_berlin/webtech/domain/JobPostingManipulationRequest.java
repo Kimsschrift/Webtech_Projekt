@@ -42,6 +42,12 @@ public class JobPostingManipulationRequest {
     private Industry industry;
     private CompanyDto company;
 
+    // fields for detailed job posting
+    private String description;
+    private String taskArea;
+    private String userProfile;
+    private String benefits;
+
     public JobPostingManipulationRequest(JobPosting posting) {
         this.id = posting.getId();
         this.title = posting.getTitle();
@@ -56,5 +62,10 @@ public class JobPostingManipulationRequest {
         this.workTime = posting.getWorkTime();
         this.industry = posting.getIndustry();
         this.company = new CompanyDto(posting.getCompany());
+
+        this.description = posting.getDescription();
+        this.taskArea = posting.getTaskArea();
+        this.userProfile = posting.getUserProfile();
+        this.benefits = posting.getBenefits();
     }
 }

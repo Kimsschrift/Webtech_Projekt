@@ -43,8 +43,16 @@
         <option value="AEROSPACE">Aerospace</option>
         <option value="OTHER">Other</option>
       </select>
-      <label><input type="checkbox" v-model="form.remoteAllowed" /> Homeoffice</label>
-      <label><input type="checkbox" v-model="form.requiresExperience" /> Erfahrung erforderlich</label>
+      <div class="checkbox-group">
+        <label class="checkbox-item">
+          <input type="checkbox" v-model="form.remoteAllowed" />
+          <span>Homeoffice</span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" v-model="form.requiresExperience" />
+          <span>Erfahrung erforderlich</span>
+        </label>
+      </div>
       <textarea v-model="form.description" placeholder="Beschreibung"></textarea>
       <textarea v-model="form.taskArea" placeholder="Aufgaben"></textarea>
       <textarea v-model="form.userProfile" placeholder="Profil"></textarea>
@@ -119,5 +127,18 @@ button {
   border: none;
   color: white;
   cursor: pointer;
+}
+
+
+.checkbox-group {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 </style>

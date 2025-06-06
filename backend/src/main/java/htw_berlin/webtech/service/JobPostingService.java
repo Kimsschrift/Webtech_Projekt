@@ -52,6 +52,11 @@ public class JobPostingService {
         jobPostingEntity.setWorkTime(request.getWorkTime());
         jobPostingEntity.setIndustry(request.getIndustry());
 
+        jobPostingEntity.setDescription(request.getDescription());
+        jobPostingEntity.setTaskArea(request.getTaskArea());
+        jobPostingEntity.setUserProfile(request.getUserProfile());
+        jobPostingEntity.setBenefits(request.getBenefits());
+
         Long companyId = request.getCompany().getId();
         Company company = companyRepository.findById(companyId)
                         .orElseThrow(() -> new IllegalArgumentException("CompanyId not found: " + companyId));
@@ -80,6 +85,11 @@ public class JobPostingService {
         jobPostingEntity.setEmploymentType(request.getEmploymentType());
         jobPostingEntity.setWorkTime(request.getWorkTime());
         jobPostingEntity.setIndustry(request.getIndustry());
+
+        jobPostingEntity.setDescription(request.getDescription());
+        jobPostingEntity.setTaskArea(request.getTaskArea());
+        jobPostingEntity.setUserProfile(request.getUserProfile());
+        jobPostingEntity.setBenefits(request.getBenefits());
 
         Long companyId = request.getCompany().getId();
         Company company = companyRepository.findById(companyId)
