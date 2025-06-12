@@ -25,6 +25,8 @@ export default {
         localStorage.setItem('user', JSON.stringify(res.data))
         if (res.data.role === 'COMPANY') {
           this.$router.push('/company')
+        } else if (res.data.role === 'ADMIN') {
+          this.$router.push('/admin')
         } else {
           this.$router.push('/jobs')
         }

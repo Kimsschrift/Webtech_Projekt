@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import axios from 'axios';
+import './navigation-guards'
 
 
 // Set Axios base URL from environment or fall back to localhost

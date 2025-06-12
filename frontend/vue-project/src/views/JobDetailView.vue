@@ -25,7 +25,7 @@ export default {
         .then(res => {
           this.job = res.data
           const user = JSON.parse(localStorage.getItem('user') || '{}')
-          this.showDelete = user.role === 'COMPANY' && user.companyId === this.job.company.id
+          this.showDelete = user.role === 'ADMIN' || (user.role === 'COMPANY' && user.companyId === this.job.company.id)
         })
         .catch(err => console.error('Fehler beim Laden:', err))
   },
@@ -33,7 +33,7 @@ export default {
     async deleteJob() {
       const user = JSON.parse(localStorage.getItem('user') || '{}')
       try {
-        await axios.delete(`/api/jobpostings/${this.job.id}`, {headers: {'X-Company-Id': user.companyId}})
+        await axios.delete(`/api/jobpostings/${this.job.id}`, {headers: {'X-Company-Id': user.companyId, 'X-User-Role': user.role}})
         this.$router.push('/jobs')
       } catch (e) {
         alert('Löschen fehlgeschlagen')

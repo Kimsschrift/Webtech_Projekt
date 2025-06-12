@@ -56,11 +56,16 @@ public class JobPostingController {
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> deleteJobPosting(@PathVariable Long id,
-                                                 @RequestHeader("X-Company-Id") Long companyId) {
-        boolean successful = jobPostingService.deleteById(id, companyId);
+                                                 @RequestHeader(value = "X-Company-Id", required = false) Long companyId,
+                                                 @RequestHeader(value = "X-User-Role", required = false) String role) {
+        boolean isAdmin = "ADMIN".equalsIgnoreCase(role);
+        boolean successful = jobPostingService.deleteById(id, companyId, isAdmin);
         return successful ? ResponseEntity.ok().build() : ResponseEntity.status(403).build();
     }
 
 
-
 }
+
+
+
+

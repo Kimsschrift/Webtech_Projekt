@@ -35,7 +35,7 @@ export default {
   computed: {
     isCompany() {
       const user = JSON.parse(localStorage.getItem('user') || '{}')
-      return user.role === 'COMPANY'
+      return ['COMPANY', 'ADMIN'].includes(user.role)
     },
     filteredJobs() {
       return this.jobs.filter(job => {
@@ -64,12 +64,13 @@ export default {
     },
     canDelete(job) {
       const user = JSON.parse(localStorage.getItem('user') || '{}')
+      if (user.role === 'ADMIN') return true
       return user.role === 'COMPANY' && user.companyId === job.company.id
     },
     async deleteJob(id) {
       const user = JSON.parse(localStorage.getItem('user') || '{}')
       try {
-        await axios.delete(`/api/jobpostings/${id}`, { headers: { 'X-Company-Id': user.companyId } })
+        await axios.delete(`/api/jobpostings/${id}`, { headers: { 'X-Company-Id': user.companyId, 'X-User-Role': user.role } })
         this.jobs = this.jobs.filter(j => j.id !== id)
       } catch (e) {
         alert('Löschen fehlgeschlagen')

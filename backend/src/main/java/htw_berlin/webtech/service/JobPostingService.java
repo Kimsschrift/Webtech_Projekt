@@ -103,8 +103,12 @@ public class JobPostingService {
     }
 
     public boolean deleteById(Long id, Long companyId) {
+        return deleteById(id, companyId, false);
+    }
+
+    public boolean deleteById(Long id, Long companyId, boolean isAdmin) {
         return jobPostingRepository.findById(id)
-                .filter(post -> post.getCompany().getId().equals(companyId))
+                .filter(post -> isAdmin || post.getCompany().getId().equals(companyId))
                 .map(post -> {
                     jobPostingRepository.delete(post);
                     return true;

@@ -19,6 +19,13 @@ public class CompanyService {
     }
 
     @Transactional
+    public java.util.List<CompanyDto> findAll() {
+        return companyRepository.findAll().stream()
+                .map(CompanyDto::new)
+                .toList();
+    }
+
+    @Transactional
     public CompanyDto findById(long id) {
         return companyRepository.findById(id)
                 .map(CompanyDto::new)

@@ -9,6 +9,7 @@ import htw_berlin.webtech.dto.JobPostingDto;
 import htw_berlin.webtech.service.CompanyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -20,6 +21,12 @@ public class CompanyController {
     public CompanyController(CompanyService companyService) {
         this.companyService = companyService;
     }
+
+    @GetMapping
+    public ResponseEntity<java.util.List<CompanyDto>> fetchCompanies() {
+        return ResponseEntity.ok(companyService.findAll());
+    }
+
 
     @PostMapping
     public ResponseEntity<CompanyDto> registerCompany(@RequestBody CompanyManipulationRequest request) {
