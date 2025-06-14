@@ -8,7 +8,7 @@ import LoginView from '@/views/LoginView.vue'
 import JobCreateView from '@/views/JobCreateView.vue'
 import JobEditView from '@/views/JobEditView.vue'
 import CompanyDashboardView from '@/views/CompanyDashboardView.vue'
-import AdminDashboardView from '@/views/AdminDashboardView.vue'
+import AdminAreaView from '@/views/AdminDashboardView.vue'
 
 const routes = [
     { path: '/', name: 'StartseitePage', component: StartseitePage },
@@ -17,7 +17,7 @@ const routes = [
     { path: '/jobs/:id/edit', name: 'JobEditView', component: JobEditView, meta: { requiresCompany: true } },
     { path: '/jobs/new', name: 'JobCreateView', component: JobCreateView, meta: { requiresCompany: true } },
     { path: '/company', name: 'CompanyDashboardView', component: CompanyDashboardView, meta: { requiresCompany: true } },
-    { path: '/admin', name: 'AdminDashboardView', component: AdminDashboardView, meta: { requiresAdmin: true } },
+    { path: '/admin', name: 'AdminAreaView', component: AdminAreaView },
     { path: '/register/company', name: 'CompanyRegisterView', component: CompanyRegisterView },
     { path: '/register/applicant', name: 'ApplicantRegisterView', component: ApplicantRegisterView },
     { path: '/login', name: 'LoginView', component: LoginView },
