@@ -8,6 +8,8 @@ import htw_berlin.webtech.domain.enums.UserRole;
 import htw_berlin.webtech.dto.AppUserDto;
 import htw_berlin.webtech.dto.RegistrationRequest;
 import htw_berlin.webtech.dto.LoginRequest;
+import htw_berlin.webtech.dto.AdminRegistrationRequest;
+import htw_berlin.webtech.dto.AdminDto;
 import htw_berlin.webtech.dto.LoginResponse;
 import htw_berlin.webtech.repository.AppUserRepository;
 import htw_berlin.webtech.repository.ApplicantRepository;
@@ -115,6 +117,29 @@ public class AppUserService {
 
         return new LoginResponse(user.getId(), user.getRole(), companyId, applicantId, adminId);
     }
+    public AdminDto registerAdmin(AdminRegistrationRequest request) {
+        if (appUserRepository.existsByEmail(request.getEmail())) {
+            throw new RuntimeException("Benutzeremail bereits vergeben.");
+        }
+
+        AppUser user = AppUser.builder()
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role(UserRole.ADMIN)
+                .enabled(true)
+                .build();
+
+        AppUser savedUser = appUserRepository.save(user);
+
+        Admin admin = Admin.builder()
+                .adminCode(request.getAdminCode())
+                .user(savedUser)
+                .build();
+
+        Admin saved = adminRepository.save(admin);
+        return new AdminDto(saved);
+    }
+
     public LoginResponse loginByAdminCode(String adminCode) {
         Admin admin = adminRepository.findByAdminCode(adminCode)
                 .orElseThrow(() -> new RuntimeException("Ungültiger Admin-Code"));

@@ -31,13 +31,7 @@ export default {
       try {
         const res = await axios.post('/api/login', this.form)
         localStorage.setItem('user', JSON.stringify(res.data))
-        if (res.data.role === 'COMPANY') {
-          this.$router.push('/company')
-        } else if (res.data.role === 'ADMIN') {
-          this.$router.push('/Admin')
-        } else {
-          this.$router.push('/jobs')
-        }
+        this.$router.push('/afterLogin')
       } catch (e) {
         alert('Login fehlgeschlagen')
       }

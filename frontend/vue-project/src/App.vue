@@ -1,11 +1,17 @@
 <template>
-  <router-link to="/" class="back-link">Zurück zur Startseite</router-link>
+  <router-link :to="backLink" class="back-link">Zurück zur Startseite</router-link>
   <router-view />
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  computed: {
+    backLink() {
+      const user = JSON.parse(localStorage.getItem('user') || '{}')
+      return user.role ? '/afterLogin' : '/'
+    }
+  }
 }
 </script>
 

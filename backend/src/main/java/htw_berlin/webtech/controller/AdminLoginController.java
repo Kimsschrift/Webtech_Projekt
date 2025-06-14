@@ -15,12 +15,12 @@ public class AdminLoginController {
     private final AppUserService appUserService;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody AdminLoginRequest request) {
+    public ResponseEntity<?> login(@RequestBody AdminLoginRequest request) {
         try {
             LoginResponse response = appUserService.loginByAdminCode(request.getCode());
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
-            return ResponseEntity.status(401).build();
+            return ResponseEntity.status(401).body("Falscher AdminCode");
         }
     }
 }

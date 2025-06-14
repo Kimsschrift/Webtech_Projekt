@@ -37,11 +37,13 @@ export default {
         if (res.data.role === 'ADMIN') {
           localStorage.setItem('user', JSON.stringify(res.data))
           this.isAdmin = true
+          this.$router.push('/afterLogin')
         } else {
           alert('Keine Admin-Rechte')
         }
       } catch (e) {
-        alert('Login fehlgeschlagen')
+        const msg = e.response?.data || 'Login fehlgeschlagen'
+        alert(msg)
       }
     }
   }
