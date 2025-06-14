@@ -1,6 +1,7 @@
 <template>
   <div class="login-container">
     <h2>Login</h2>
+    <p v-if="infoMessage" class="info">{{ infoMessage }}</p>
     <form @submit.prevent="submit">
       <input v-model="form.email" type="email" placeholder="Email" required />
       <input v-model="form.password" type="password" placeholder="Passwort" required />
@@ -16,6 +17,13 @@ export default {
   data() {
     return {
       form: { email: '', password: '' }
+    }
+  },
+  computed: {
+    infoMessage() {
+      return this.$route.query.message === 'login_required'
+          ? 'Sie m\u00fcssen sich anmelden, um Stellenanzeigen anzusehen.'
+          : ''
     }
   },
   methods: {
@@ -46,6 +54,10 @@ export default {
   background: white;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.info {
+  color: #d32f2f;
+  margin-bottom: 1rem;
 }
 input {
   display: block;

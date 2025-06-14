@@ -4,11 +4,10 @@
     <div v-else class="login-container">
       <h2>Admin Login</h2>
       <form @submit.prevent="login">
-        <input v-model="form.email" type="email" placeholder="Email" required />
-        <input v-model="form.password" type="password" placeholder="Passwort" required />
+        <input v-model="form.code" type="text" placeholder="Admin-Code" required />
         <button type="submit">Einloggen</button>
       </form>
-      <router-link class="register-link" to="/AdminAnmelden">Registrieren</router-link>
+
     </div>
   </div>
 </template>
@@ -21,7 +20,7 @@ export default {
   components: { AdminDashboardView },
   data() {
     return {
-      form: { email: '', password: '' },
+      form: { code: '' },
       isAdmin: false
     }
   },
@@ -34,7 +33,7 @@ export default {
   methods: {
     async login() {
       try {
-        const res = await axios.post('/api/login', this.form)
+        const res = await axios.post('/api/admin/login', this.form)
         if (res.data.role === 'ADMIN') {
           localStorage.setItem('user', JSON.stringify(res.data))
           this.isAdmin = true
@@ -57,12 +56,6 @@ export default {
   background: white;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-.register-link {
-  display: block;
-  margin-top: 1rem;
-  text-align: center;
-  color: #1a73e8;
 }
 input {
   display: block;

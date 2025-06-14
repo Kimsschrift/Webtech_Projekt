@@ -14,6 +14,9 @@ public class Admin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "admin_code", unique = true, nullable = false)
+    private String adminCode;
+
     @OneToOne
     @JoinColumn(name = "user_id")
     private AppUser user;

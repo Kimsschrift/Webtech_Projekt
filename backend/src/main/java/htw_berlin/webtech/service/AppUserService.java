@@ -115,4 +115,17 @@ public class AppUserService {
 
         return new LoginResponse(user.getId(), user.getRole(), companyId, applicantId, adminId);
     }
+    public LoginResponse loginByAdminCode(String adminCode) {
+        Admin admin = adminRepository.findByAdminCode(adminCode)
+                .orElseThrow(() -> new RuntimeException("Ungültiger Admin-Code"));
+
+        AppUser user = admin.getUser();
+
+        Long companyId = companyRepository.findByUserId(user.getId())
+                .map(Company::getId).orElse(null);
+        Long applicantId = applicantRepository.findByUserId(user.getId())
+                .map(Applicant::getId).orElse(null);
+
+        return new LoginResponse(user.getId(), user.getRole(), companyId, applicantId, admin.getId());
+    }
 }
