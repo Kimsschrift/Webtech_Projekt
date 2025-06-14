@@ -13,4 +13,5 @@ public class LoginResponse {
     private UserRole role;
     private Long companyId;
     private Long applicantId;
+    private Long adminId;
 }

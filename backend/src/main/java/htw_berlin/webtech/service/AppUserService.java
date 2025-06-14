@@ -3,6 +3,7 @@ package htw_berlin.webtech.service;
 import htw_berlin.webtech.domain.AppUser;
 import htw_berlin.webtech.domain.Applicant;
 import htw_berlin.webtech.domain.Company;
+import htw_berlin.webtech.domain.Admin;
 import htw_berlin.webtech.domain.enums.UserRole;
 import htw_berlin.webtech.dto.AppUserDto;
 import htw_berlin.webtech.dto.RegistrationRequest;
@@ -11,6 +12,7 @@ import htw_berlin.webtech.dto.LoginResponse;
 import htw_berlin.webtech.repository.AppUserRepository;
 import htw_berlin.webtech.repository.ApplicantRepository;
 import htw_berlin.webtech.repository.CompanyRepository;
+import htw_berlin.webtech.repository.AdminRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ public class AppUserService {
     private final AppUserRepository appUserRepository;
     private final CompanyRepository companyRepository;
     private final ApplicantRepository applicantRepository;
+    private final AdminRepository adminRepository;
     private final PasswordEncoder passwordEncoder;
 
     public void registerUser(RegistrationRequest request) {
@@ -66,6 +69,11 @@ public class AppUserService {
                     .user(savedUser)
                     .build();
             applicantRepository.save(applicant);
+        } else if (request.getRole() == UserRole.ADMIN) {
+            Admin admin = Admin.builder()
+                    .user(savedUser)
+                    .build();
+            adminRepository.save(admin);
         } else {
             throw new RuntimeException("Ungültige Rolle: " + request.getRole());
         }
@@ -102,7 +110,9 @@ public class AppUserService {
                 .map(Company::getId).orElse(null);
         Long applicantId = applicantRepository.findByUserId(user.getId())
                 .map(Applicant::getId).orElse(null);
+        Long adminId = adminRepository.findByUserId(user.getId())
+                .map(Admin::getId).orElse(null);
 
-        return new LoginResponse(user.getId(), user.getRole(), companyId, applicantId);
+        return new LoginResponse(user.getId(), user.getRole(), companyId, applicantId, adminId);
     }
 }

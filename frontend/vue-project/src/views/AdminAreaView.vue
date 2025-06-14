@@ -8,6 +8,7 @@
         <input v-model="form.password" type="password" placeholder="Passwort" required />
         <button type="submit">Einloggen</button>
       </form>
+      <router-link class="register-link" to="/AdminAnmelden">Registrieren</router-link>
     </div>
   </div>
 </template>
@@ -56,6 +57,12 @@ export default {
   background: white;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.register-link {
+  display: block;
+  margin-top: 1rem;
+  text-align: center;
+  color: #1a73e8;
 }
 input {
   display: block;
