@@ -121,6 +121,9 @@ public class AppUserService {
         if (appUserRepository.existsByEmail(request.getEmail())) {
             throw new RuntimeException("Benutzeremail bereits vergeben.");
         }
+        if (adminRepository.findByAdminCode(request.getAdminCode()).isPresent()) {
+            throw new RuntimeException("Admin-Code bereits vergeben.");
+        }
 
         AppUser user = AppUser.builder()
                 .email(request.getEmail())

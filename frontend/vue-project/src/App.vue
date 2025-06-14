@@ -8,6 +8,8 @@ export default {
   name: 'App',
   computed: {
     backLink() {
+      // include route as reactive dependency so the link updates after login
+      this.$route
       const user = JSON.parse(localStorage.getItem('user') || '{}')
       return user.role ? '/afterLogin' : '/'
     }

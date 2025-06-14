@@ -44,3 +44,6 @@ uploads/
 
 # Exception Rules (if needed)
 !gradle/wrapper/gradle-wrapper.jar
+gradle_test.log
+/tmp/npm_install.log
+/tmp/npm_build.log
