@@ -1,6 +1,6 @@
 <template>
   <div class="personal-info" v-if="applicant">
-    <h2>Pers\u00f6nliche Informationen</h2>
+    <h2>Persönliche Informationen</h2>
     <img v-if="applicant.profileImageUrl" :src="applicant.profileImageUrl" class="profile-image" alt="Profilbild">
 
     <div v-if="!editMode">
@@ -36,7 +36,11 @@ export default {
     const user = JSON.parse(localStorage.getItem('user') || '{}')
     if (!user.applicantId) return
     const res = await axios.get(`/api/applicants/${user.applicantId}`)
-    this.applicant = res.data
+    const data = res.data
+    if (data.profileImageUrl) {
+      data.profileImageUrl = new URL(data.profileImageUrl, axios.defaults.baseURL).href
+    }
+    this.applicant = data
   },
   methods: {
     enableEdit() {
