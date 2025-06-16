@@ -35,12 +35,16 @@ export default {
   async mounted() {
     const user = JSON.parse(localStorage.getItem('user') || '{}')
     if (!user.applicantId) return
-    const res = await axios.get(`/api/applicants/${user.applicantId}`)
-    const data = res.data
-    if (data.profileImageUrl) {
-      data.profileImageUrl = new URL(data.profileImageUrl, axios.defaults.baseURL).href
+    try {
+      const res = await axios.get(`/api/applicants/${user.applicantId}`)
+      const data = res.data
+      if (data.profileImageUrl && !data.profileImageUrl.startsWith('http')) {
+        data.profileImageUrl = new URL(data.profileImageUrl, axios.defaults.baseURL).href
+      }
+      this.applicant = data
+    } catch (e) {
+      console.error('Fehler beim Laden der Bewerberdaten:', e)
     }
-    this.applicant = data
   },
   methods: {
     enableEdit() {

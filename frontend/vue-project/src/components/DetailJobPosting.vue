@@ -2,6 +2,7 @@
   <div class="detail" v-if="job">
     <h2>{{ job.title }}</h2>
     <p><strong>Firma:</strong> {{ job.company?.name }}</p>
+    <p v-if="job.company?.contactEmail"><strong>Kontaktemail:</strong> {{ job.company.contactEmail }}</p>
     <p><strong>Ort:</strong> {{ job.location }}</p>
     <p><strong>Skills:</strong> {{ job.skills.join(', ') }}</p>
     <p><strong>Sprachen:</strong> {{ job.languages.join(', ') }}</p>

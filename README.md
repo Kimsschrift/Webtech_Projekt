@@ -38,8 +38,8 @@ Unternehmen wiederum können effizient Kandidat:innen mit passenden Qualifikatio
 | Deployment    | Render.com (Backend & Frontend getrennt)     |
 
 ### Deployment Links
-- **Frontend:** https://karrierehub-frontend.onrender.com
-- **Backend:** https://karrierehub-backend.onrender.com
+- **Frontend:** 
+- **Backend:** 
 
 
 ## 🚀 Lokale Entwicklung
