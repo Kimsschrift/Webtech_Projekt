@@ -10,6 +10,7 @@ import JobEditView from '@/views/JobEditView.vue'
 import CompanyDashboardView from '@/views/CompanyDashboardView.vue'
 import AdminAreaView from '@/views/AdminAreaView.vue'
 import StartPageAfterLogin from '@/views/StartPageAfterLogin.vue'
+import ApplicantInfoView from '@/views/ApplicantInfoView.vue'
 
 const routes = [
     { path: '/', name: 'StartseitePage', component: StartseitePage },
@@ -20,9 +21,11 @@ const routes = [
     { path: '/company', name: 'CompanyDashboardView', component: CompanyDashboardView, meta: { requiresCompany: true } },
     { path: '/api/admin/login', name: 'AdminAreaView', component: AdminAreaView },
     { path: '/afterLogin', name: 'StartPageAfterLogin', component: StartPageAfterLogin },
+    { path: '/personal-info', name: 'ApplicantInfoView', component: ApplicantInfoView, meta: { requiresApplicant: true } },
     { path: '/register/company', name: 'CompanyRegisterView', component: CompanyRegisterView },
     { path: '/register/applicant', name: 'ApplicantRegisterView', component: ApplicantRegisterView },
     { path: '/login', name: 'LoginView', component: LoginView },
+
 ]
 
 const router = createRouter({

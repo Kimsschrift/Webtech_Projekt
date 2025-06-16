@@ -42,7 +42,9 @@ export default {
         const f = this.activeFilters;
         const matchesRemote = !f.remoteAllowed || job.remoteAllowed;
         const matchesSalary = job.expectedSalary >= (f.minSalary || 0);
-        const matchesLang = !f.language?.length || f.language.some(lang => job.languages.includes(lang));
+        const matchesLang = !f.language?.length || f.language.some(lang =>
+            job.languages.map(l => l.toLowerCase()).includes(lang.toLowerCase())
+        );
         const matchesExp = !f.requiresExperience || job.requiresExperience;
         const matchesIndustry = !f.industry || job.industry === f.industry;
         const matchesWorkTime = !f.workTime || job.workTime === f.workTime;

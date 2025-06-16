@@ -15,5 +15,8 @@ router.beforeEach((to, from, next) => {
     if (to.meta.requiresCompany && !['COMPANY', 'ADMIN'].includes(user.role)) {
         return next('/jobs')
     }
+    if (to.meta.requiresApplicant && user.role !== 'APPLICANT') {
+        return next('/jobs')
+    }
     next()
 })
