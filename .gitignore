@@ -47,3 +47,7 @@ uploads/
 gradle_test.log
 /tmp/npm_install.log
 /tmp/npm_build.log
+
+# Environment files
+.env
+backend/.env
