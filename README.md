@@ -37,6 +37,10 @@ Unternehmen wiederum können effizient Kandidat:innen mit passenden Qualifikatio
 | Build & CI/CD | Gradle, GitHub Actions, Docker               |
 | Deployment    | Render.com (Backend & Frontend getrennt)     |
 
+### Deployment Links
+- **Frontend:** https://karrierehub-frontend.onrender.com
+- **Backend:** https://karrierehub-backend.onrender.com
+
 
 ## 🚀 Lokale Entwicklung
 
@@ -46,6 +50,8 @@ Unternehmen wiederum können effizient Kandidat:innen mit passenden Qualifikatio
 - Gradle 8.x
 - GitHub Account
 - Render Account
+
+Erstelle eine Kopie von `backend/.env.example` als `backend/.env` und fülle die Zugangsdaten für die Datenbank und API-URL aus.
 
 
 ### API Endpoints
