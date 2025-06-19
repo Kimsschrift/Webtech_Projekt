@@ -11,9 +11,11 @@ import CompanyDashboardView from '@/views/CompanyDashboardView.vue'
 import AdminAreaView from '@/views/AdminAreaView.vue'
 import StartPageAfterLogin from '@/views/StartPageAfterLogin.vue'
 import ApplicantInfoView from '@/views/ApplicantInfoView.vue'
+import RegisterTypeSelectView from "@/views/RegisterTypeSelectView.vue";
 
 const routes = [
     { path: '/', name: 'StartseitePage', component: StartseitePage },
+    { path: '/register', name: 'RegisterTypeSelect', component: RegisterTypeSelectView},
     { path: '/jobs', name: 'JobListView', component: JobListView },
     { path: '/jobs/:id', name: 'JobDetailView', component: JobDetailView },
     { path: '/jobs/:id/edit', name: 'JobEditView', component: JobEditView, meta: { requiresCompany: true } },

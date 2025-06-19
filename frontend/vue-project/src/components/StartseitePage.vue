@@ -1,188 +1,195 @@
 <template>
-  <div id="app">
-    <header class="navbar">
-      <div class="logo-box">
-        <img :src="logo" alt="Karrierehub Logo" class="logo-banner">
-      </div>
-    </header>
+  <div class="login-container">
+    <p style="font-weight: bold">Bitte geben Sie Ihre Daten ein</p>
 
-    <main class="main-section">
-      <div class="access-panels">
-        <div class="panel">
-          <h2>Für Unternehmen</h2>
-          <p>Login oder Registrierung für Arbeitgeber</p>
-          <div class="button-group">
-            <router-link to="/register/company" class="btn">Anmelden</router-link>
-            <router-link to="/login" class="btn secondary">Login</router-link>
-          </div>
-        </div>
-        <div class="panel">
-          <h2>Für Bewerber</h2>
-          <p>Login oder Registrierung für Jobsuchende</p>
-          <div class="button-group">
-            <router-link to="/register/applicant" class="btn">Anmelden</router-link>
-            <router-link to="/login" class="btn secondary">Login</router-link>
-          </div>
-        </div>
+    <form class="login-form" @submit.prevent="submit">
+      <label for="email">E-mail</label>
+      <input id="email" v-model="email" type="email" placeholder="E-Mail" required/>
+
+      <label for="password">Passwort</label>
+      <input id="password" v-model="password" type="password" placeholder="Passwort" required />
+
+      <!-- not implemented -->
+      <div class="remember-forgot">
+        <label class="remember-label">
+          <input type="checkbox" /> Für 30 Tage merken
+        </label>
+
+        <!-- not implemented -->
+        <a href="#" class="forgot-link">Passwort vergessen?</a>
       </div>
 
+      <button class="login-btn" type="submit">Einloggen</button>
+      <div v-if="errorMsg" class="login-error">{{ errorMsg }}</div>
 
-      <div class="job-link-container">
-        <router-link to="/jobs" class="job-link-button">
-          🔍 Offene Stellenanzeigen ansehen
-        </router-link>
+      <!-- not implemented -->
+      <div class="google-login">
+        <img src="@/assets/GoogleLogo.png" alt="Google Logo" class="google-logo"/>
+        <span>Mit Google anmelden</span>
       </div>
-    </main>
+    </form>
 
-    <footer class="footer">
-      <p>&copy; 2025 Karrierehub AG. Wir verbinden Talente mit Chancen – einfach, transparent und fair.</p>
-    </footer>
+    <div class="no-account">
+      Sie haben noch kein Konto?
+      <router-link to="/register" class="signup-link">Jetzt registrieren</router-link>
+    </div>
   </div>
+
+  <footer class="footer">
+    <p>&copy; 2025 Karrierehub AG. Wir verbinden Talente mit Chancen – einfach, transparent und fair.</p>
+  </footer>
 </template>
 
+
 <script>
-import Logo from '@/assets/KarrierehubLogo.png'
+import axios from 'axios'
 
 export default {
-  name: 'StartseitePage',
+  name: "StartseitePage",
+
   data() {
     return {
-      logo: Logo
+      form: { email: '', password: '' },
+      errorMsg: ""
+    }
+  },
+  methods: {
+    async submit() {
+      try {
+        const res = await axios.post('/api/login', this.form)
+        localStorage.setItem('user', JSON.stringify(res.data))
+        this.$router.push('/afterLogin')
+      } catch (e) {
+        alert('Login fehlgeschlagen')
+      }
     }
   }
 }
+
 </script>
 
-<style scoped>
-#app {
-  position: relative;
-  z-index: 1;
-  background-color: rgba(255, 255, 255, 0.9);
-}
+<style>
 
-#app::before {
-  content: '';
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: url('@/assets/Hintergrund.png') no-repeat center center;
-  background-size: cover;
-  z-index: -1;
-}
-
-.navbar {
-  background-color: #1a73e8;
-  text-align: center;
-  padding: 1rem 0;
-}
-
-.logo-box {
-  background-color: white;
-  padding: 1.5rem 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.logo-banner {
-  width: 60%;
-  max-width: 210px;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-}
-
-.access-panels {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-  margin-top: 2rem;
-}
-
-.panel {
-  background: white;
-  border-left: 5px solid #1a73e8;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-  padding: 2rem;
-  border-radius: 12px;
-  min-width: 300px;
-}
-
-.main-section {
+.login-container {
+  max-width: 380px;
+  margin: 80px auto 0 auto;
+  background: #fff;
+  padding: 2.5rem 2rem;
+  border-radius: 14px;
+  box-shadow: 0 6px 32px rgba(40,60,120,0.10);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3rem 1rem;
+  gap: 18px;
 }
 
 
-.panel h2 {
-  margin-bottom: 1rem;
-  color: #1a73e8;
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  width: 100%;
 }
 
-.button-group {
+.login-form label {
+  font-weight: 500;
+}
+
+.login-form input[type="email"],
+.login-form input[type="password"] {
+  padding: 0.7rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  font-size: 1rem;
+}
+
+.remember-forgot {
   display: flex;
   justify-content: space-between;
-  margin-top: 1rem;
-  gap: 1rem;
+  align-items: center;
+  margin-bottom: 0.3rem;
 }
 
-.button-group button {
-  flex: 1;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  background-color: #1a73e8;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.remember-label {
+  font-size: 0.98rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.button-group .secondary {
-  background-color: #4285f4;
-}
-
-
-.job-link-container {
-  margin-top: 3rem;
-  text-align: center;
-}
-
-.job-link-button {
-  display: inline-block;
-  background-color: #1a73e8;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  border-radius: 5px;
+.forgot-link {
+  font-size: 0.95rem;
+  color: #377dff;
   text-decoration: none;
-  transition: background-color 0.3s ease;
 }
 
-.job-link-button:hover {
-  background-color: #0d5cc0;
+.login-btn {
+  margin-top: 10px;
+  padding: 0.7rem 0;
+  border: none;
+  border-radius: 9px;
+  background: #377dff;
+  color: #fff;
+  font-size: 1.08rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.login-btn:hover {
+  background: #185abc;
+}
+
+.google-login {
+  margin: 1.2rem 0 0.6rem 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  justify-content: center;
+  padding: 0.6rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  border: 1px solid #e5e7eb;
+  transition: background 0.15s;
+}
+
+.google-login:hover {
+  background: #f1f3f4;
+}
+
+.google-logo {
+  width: 23px;
+  height: 23px;
+}
+
+.no-account {
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+.signup-link {
+  color: #377dff;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 7px;
 }
 
 .footer {
-  margin-top: 3rem;
+  margin-top: 2.5rem;
+  padding: 1.2rem 0;
+  background: #e5e7eb;
   text-align: center;
-  padding: 2rem;
-  background-color: #1a73e8;
-  color: white;
-  font-size: 0.95rem;
-  line-height: 1.6;
+  color: #6c6c6c;
+  font-size: 1.01rem;
+  border-radius: 0 0 14px 14px;
 }
 
-.btn {
-  flex: 1;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  background-color: #1a73e8;
-  color: white;
+.login-error {
+  color: red;
+  margin-top: 0.6rem;
   text-align: center;
-  border-radius: 5px;
-  text-decoration: none;
+  font-weight: bold;
 }
-
 </style>

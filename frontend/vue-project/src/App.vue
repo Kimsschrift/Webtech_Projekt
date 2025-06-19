@@ -1,42 +1,69 @@
 <template>
-  <router-link :to="backLink" class="back-link">Zurück zur Startseite</router-link>
-  <router-view />
+  <div class="logo" style="cursor:pointer;">
+    <!-- Logo (left side) -->
+    <img src="@/assets/KarrierehubLogo.png" alt="Karrierehub Logo" @click="goHome"/>
+  </div>
+  <router-view/>
 </template>
 
 <script>
+
 export default {
   name: 'App',
-  computed: {
-    backLink() {
-      // include route as reactive dependency so the link updates after login
-      this.$route
+  methods: {
+    goHome() {
       const user = JSON.parse(localStorage.getItem('user') || '{}')
-      return user.role ? '/afterLogin' : '/'
+      if (user && user.role) {
+
+        this.$router.push('/afterLogin')
+      } else {
+
+        this.$router.push('/')
+      }
     }
   }
 }
+
+
 </script>
 
+
 <style>
-body {
-  background: url('@/assets/Hintergrund.png') no-repeat center center fixed;
-  background-size: cover;
-  font-family: 'Segoe UI', sans-serif;
-  margin: 0;
-  padding: 0;
-  color: #222;
+/* In this section, we establish a unified frontend design */
+:root {
+  --primary: #377dff;
+  --primary-dark: #185abc;
+  --background: #e5e7eb;
+  --border: #e5e7eb;
+  --radius: 10px;
+  --basic-font: 'Inter', 'Roboto', 'Montserrat', sans-serif;
+  --shadow-card: 0 4px 24px rgba(40,60,120,0.08);
+  --input-padding: 0.9rem 1rem;
 }
 
-.back-link {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  z-index: 1000;
-  display: inline-block;
-  background: #1a73e8;
-  color: white;
-  padding: 0.4rem 0.8rem;
-  border-radius: 5px;
-  text-decoration: none;
+/* Logo */
+.logo{
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
+
+.logo img {
+  height: 130px;
+}
+
+/* . */
+body {
+  font-family: var(--basic-font);
+  background: var(--background);
+  color: black;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  letter-spacing: -0.01em;
+}
+
+
 </style>
