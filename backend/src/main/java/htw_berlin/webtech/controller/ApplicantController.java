@@ -21,10 +21,9 @@ public class ApplicantController {
     private final ApplicantService applicantService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Applicant> getApplicant(@PathVariable Long id) {
-        return applicantRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<ApplicantDto> getApplicant(@PathVariable Long id) {
+        var applicant = applicantService.findById(id);
+        return applicant != null ? ResponseEntity.ok(applicant) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")

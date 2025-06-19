@@ -4,10 +4,10 @@
 
     <form class="login-form" @submit.prevent="submit">
       <label for="email">E-mail</label>
-      <input id="email" v-model="email" type="email" placeholder="E-Mail" required/>
+      <input id="email" v-model="form.email" type="email" placeholder="E-Mail" required/>
 
       <label for="password">Passwort</label>
-      <input id="password" v-model="password" type="password" placeholder="Passwort" required />
+      <input id="password" v-model="form.password" type="password" placeholder="Passwort" required />
 
       <!-- not implemented -->
       <div class="remember-forgot">
@@ -60,7 +60,7 @@ export default {
         localStorage.setItem('user', JSON.stringify(res.data))
         this.$router.push('/afterLogin')
       } catch (e) {
-        alert('Login fehlgeschlagen')
+        this.errorMsg('Login fehlgeschlagen')
       }
     }
   }

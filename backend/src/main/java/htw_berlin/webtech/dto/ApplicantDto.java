@@ -18,11 +18,13 @@ public class ApplicantDto {
     private String name;
     private String email;
     private String phoneNumber;
+    private String profileImageUrl;
 
     public ApplicantDto(Applicant applicant){
         this.id = applicant.getId();
         this.name = applicant.getName();
         this.email = applicant.getEmail();
         this.phoneNumber = applicant.getPhoneNumber();
+        this.profileImageUrl = applicant.getProfileImageUrl();
     }
 }

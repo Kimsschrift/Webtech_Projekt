@@ -19,6 +19,12 @@ public class ApplicantService {
 
     private final ApplicantRepository applicantRepository;
 
+    public ApplicantDto findById(Long id) {
+        return applicantRepository.findById(id)
+                .map(ApplicantDto::new)
+                .orElse(null);
+    }
+
     public ApplicantDto update(Long id, ApplicantManipulationRequest request) {
         var applicant = applicantRepository.findById(id);
         if (applicant.isEmpty()) {
