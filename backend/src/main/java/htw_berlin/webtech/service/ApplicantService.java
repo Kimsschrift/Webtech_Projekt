@@ -2,13 +2,8 @@ package htw_berlin.webtech.service;
 
 import htw_berlin.webtech.domain.Applicant;
 import htw_berlin.webtech.domain.ApplicantManipulationRequest;
-import htw_berlin.webtech.domain.Company;
-import htw_berlin.webtech.domain.CompanyManipulationRequest;
 import htw_berlin.webtech.dto.ApplicantDto;
-import htw_berlin.webtech.dto.CompanyDto;
-import htw_berlin.webtech.repository.AppUserRepository;
 import htw_berlin.webtech.repository.ApplicantRepository;
-import htw_berlin.webtech.repository.CompanyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +39,23 @@ public class ApplicantService {
         if (request.getPhoneNumber() != null && !request.getPhoneNumber().isBlank()) {
             applicantEntity.setPhoneNumber(request.getPhoneNumber());
         }
+
+        if (request.getBirthDate() != null) {
+            applicantEntity.setBirthDate(request.getBirthDate());
+        }
+
+        if (request.getCvLink() != null && !request.getCvLink().isBlank()) {
+            applicantEntity.setCvLink(request.getCvLink());
+        }
+
+        if (request.getResumeText() != null && !request.getResumeText().isBlank()) {
+            applicantEntity.setResumeText(request.getResumeText());
+        }
+
+        if (request.getProfileImageUrl() != null && !request.getProfileImageUrl().isBlank()) {
+            applicantEntity.setProfileImageUrl(request.getProfileImageUrl());
+        }
+
 
         Applicant saved = applicantRepository.save(applicantEntity);
         return new ApplicantDto(saved);

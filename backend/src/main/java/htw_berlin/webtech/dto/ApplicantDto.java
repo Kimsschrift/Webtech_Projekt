@@ -19,6 +19,9 @@ public class ApplicantDto {
     private String email;
     private String phoneNumber;
     private String profileImageUrl;
+    private java.time.LocalDate birthDate;
+    private String cvLink;
+    private String resumeText;
 
     public ApplicantDto(Applicant applicant){
         this.id = applicant.getId();
@@ -26,5 +29,8 @@ public class ApplicantDto {
         this.email = applicant.getEmail();
         this.phoneNumber = applicant.getPhoneNumber();
         this.profileImageUrl = applicant.getProfileImageUrl();
+        this.birthDate = applicant.getBirthDate();
+        this.cvLink = applicant.getCvLink();
+        this.resumeText = applicant.getResumeText();
     }
 }

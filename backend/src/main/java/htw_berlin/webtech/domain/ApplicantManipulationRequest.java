@@ -14,4 +14,8 @@ public class ApplicantManipulationRequest {
     private String name;
     private String email;
     private String phoneNumber;
+    private java.time.LocalDate birthDate;
+    private String cvLink;
+    private String resumeText;
+    private String profileImageUrl;
 }

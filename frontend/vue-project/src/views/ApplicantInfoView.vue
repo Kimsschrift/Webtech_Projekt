@@ -8,6 +8,8 @@
       <p><strong>Email:</strong> {{ applicant.email }}</p>
       <p><strong>Telefon:</strong> {{ applicant.phoneNumber }}</p>
       <p v-if="applicant.birthDate"><strong>Geburtsdatum:</strong> {{ applicant.birthDate }}</p>
+      <p v-if="applicant.cvLink"><strong>CV:</strong> <a :href="applicant.cvLink" target="_blank">Download</a></p>
+      <p v-if="applicant.resumeText"><strong>Bewerbungstext:</strong> {{ applicant.resumeText }}</p>
       <button @click="enableEdit">Bearbeiten</button>
     </div>
 
@@ -15,6 +17,10 @@
       <input v-model="form.name" placeholder="Name" />
       <input v-model="form.email" type="email" placeholder="Email" />
       <input v-model="form.phoneNumber" placeholder="Telefon" />
+      <input v-model="form.birthDate" type="date" />
+      <input v-model="form.cvLink" placeholder="CV Link" />
+      <textarea v-model="form.resumeText" placeholder="Bewerbungstext" />
+      <input v-model="form.profileImageUrl" placeholder="Profilbild URL" />
       <button @click="updateInfo">Speichern</button>
       <button @click="cancelEdit">Abbrechen</button>
     </div>
@@ -29,7 +35,15 @@ export default {
     return {
       applicant: null,
       editMode: false,
-      form: { name: '', email: '', phoneNumber: '' }
+      form: {
+        name: '',
+        email: '',
+        phoneNumber: '',
+        birthDate: '',
+        cvLink: '',
+        resumeText: '',
+        profileImageUrl: ''
+      }
     }
   },
   async mounted() {
@@ -39,7 +53,8 @@ export default {
       const res = await axios.get(`/api/applicants/${user.applicantId}`)
       const data = res.data
       if (data.profileImageUrl && !data.profileImageUrl.startsWith('http')) {
-        data.profileImageUrl = new URL(data.profileImageUrl, axios.defaults.baseURL).href
+        const base = axios.defaults.baseURL.replace(/\/?api$/, '')
+        data.profileImageUrl = base + data.profileImageUrl
       }
       this.applicant = data
     } catch (e) {
@@ -52,7 +67,11 @@ export default {
       this.form = {
         name: this.applicant.name || '',
         email: this.applicant.email || '',
-        phoneNumber: this.applicant.phoneNumber || ''
+        phoneNumber: this.applicant.phoneNumber || '',
+        birthDate: this.applicant.birthDate || '',
+        cvLink: this.applicant.cvLink || '',
+        resumeText: this.applicant.resumeText || '',
+        profileImageUrl: this.applicant.profileImageUrl || ''
       }
     },
     cancelEdit() {
@@ -62,7 +81,12 @@ export default {
       const user = JSON.parse(localStorage.getItem('user') || '{}')
       try {
         const res = await axios.put(`/api/applicants/${user.applicantId}`, this.form)
-        this.applicant = res.data
+        const data = res.data
+        if (data.profileImageUrl && !data.profileImageUrl.startsWith('http')) {
+          const base = axios.defaults.baseURL.replace(/\/?api$/, '')
+          data.profileImageUrl = base + data.profileImageUrl
+        }
+        this.applicant = data
         this.editMode = false
       } catch (e) {
         alert('Aktualisierung fehlgeschlagen')
