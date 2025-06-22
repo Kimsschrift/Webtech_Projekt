@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "concurrently \"npm run backend\" \"vite\"",
-    "backend": "cd ../../backend && ./gradlew bootRun",
+    "backend": "cd ../.. && ./gradlew :backend:bootRun",
     "build": "vite build",
     "serve": "vite",
     "test": "vitest"
