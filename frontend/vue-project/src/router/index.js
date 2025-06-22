@@ -11,7 +11,29 @@ import CompanyDashboardView from '@/views/CompanyDashboardView.vue'
 import AdminAreaView from '@/views/AdminAreaView.vue'
 import StartPageAfterLogin from '@/views/StartPageAfterLogin.vue'
 import ApplicantInfoView from '@/views/ApplicantInfoView.vue'
-import RegisterTypeSelectView from "@/views/RegisterTypeSelectView.vue";
+import RegisterTypeSelectView from "@/views/RegisterTypeSelectView.vue"
+import OktaSignIn from '@okta/okta-signin-widget'
+import { OktaAuth } from '@okta/okta-auth-js'
+
+const oktaSignIn = new OktaSignIn({
+    baseUrl: 'https://trial-5957820.okta.com',
+    clientId: '0oaske4gq52p9f0gZ697',
+    redirectUri: process.env.VUE_APP_FRONTEND_BASE_URL + '/login/callback',
+    authParams: {
+        pkce: true,
+        issuer: 'https://trial-5957820.okta.com/oauth2/default',
+        display: 'page',
+        scopes: ['openid', 'profile', 'email']
+    },
+    features: { registration: true }
+})
+
+const oktaAuth = new OktaAuth({
+    issuer: 'https://trial-5957820.okta.com/oauth2/default',
+    clientId: '0oaske4gq52p9f0gZ697',
+    redirectUri: window.location.origin + '/login/callback',
+    scopes: ['openid', 'profile', 'email']
+})
 
 const routes = [
     { path: '/', name: 'StartseitePage', component: StartseitePage },
@@ -36,3 +58,4 @@ const router = createRouter({
 })
 
 export default router
+export { oktaAuth, oktaSignIn }
