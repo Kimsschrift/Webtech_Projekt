@@ -14,6 +14,7 @@ import ApplicantInfoView from '@/views/ApplicantInfoView.vue'
 import RegisterTypeSelectView from "@/views/RegisterTypeSelectView.vue"
 import OktaSignIn from '@okta/okta-signin-widget'
 import { OktaAuth } from '@okta/okta-auth-js'
+import { LoginCallback} from "@okta/okta-vue";
 
 const oktaSignIn = new OktaSignIn({
     baseUrl: 'https://trial-5957820.okta.com',
@@ -49,6 +50,7 @@ const routes = [
     { path: '/register/company', name: 'CompanyRegisterView', component: CompanyRegisterView },
     { path: '/register/applicant', name: 'ApplicantRegisterView', component: ApplicantRegisterView },
     { path: '/login', name: 'LoginView', component: LoginView },
+    { path: '/login.callback', component: LoginCallback }
 
 ]
 
