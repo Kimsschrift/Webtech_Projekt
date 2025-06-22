@@ -16,10 +16,11 @@ import { OktaAuth } from '@okta/okta-auth-js'
 import { LoginCallback } from '@okta/okta-vue'
 
 const oktaAuth = new OktaAuth({
-    issuer: 'https://trial-5957820.okta.com/oauth2/default',
-    clientId: '0oaske4gq52p9f0gZ697',
+    issuer: import.meta.env.VITE_OKTA_ISSUER,
+    clientId: import.meta.env.VITE_OKTA_CLIENT_ID,
     redirectUri: window.location.origin + '/login/callback',
-    scopes: ['openid', 'profile', 'email']
+    scopes: ['openid', 'profile', 'email'],
+    pkce: true
 })
 
 const routes = [

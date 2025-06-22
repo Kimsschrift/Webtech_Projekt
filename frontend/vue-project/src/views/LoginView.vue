@@ -1,78 +1,39 @@
 <template>
-  <div class="login-container">
-    <h2>Login</h2>
-    <p v-if="infoMessage" class="info">{{ infoMessage }}</p>
-    <form @submit.prevent="submit">
-      <input v-model="form.email" type="email" placeholder="Email" required />
-      <input v-model="form.password" type="password" placeholder="Passwort" required />
-      <button type="submit">Einloggen</button>
-    </form>
+  <div class="widget-wrapper">
+    <div id="okta-signin"></div>
   </div>
 </template>
 
-<script>
+<script setup>
+import { onMounted, onBeforeUnmount } from 'vue'
+import OktaSignIn from '@okta/okta-signin-widget'
 import { oktaAuth } from '../router'
 
-export default {
-  data() {
-    return {
-      form: { email: '', password: '' }
+let widget
+
+onMounted(() => {
+  widget = new OktaSignIn({
+    baseUrl: import.meta.env.VITE_OKTA_BASE_URL,
+    clientId: import.meta.env.VITE_OKTA_CLIENT_ID,
+    redirectUri: window.location.origin + '/login/callback',
+    authParams: { issuer: import.meta.env.VITE_OKTA_ISSUER, pkce: true }
+  })
+
+  widget.renderEl({ el: '#okta-signin' }, res => {
+    if (res.status === 'SUCCESS') {
+      oktaAuth.token.getWithRedirect({sessionToken: res.session.token})
     }
-  },
-  computed: {
-    infoMessage() {
-      return this.$route.query.message === 'login_required'
-          ? 'Sie m\u00fcssen sich anmelden, um Stellenanzeigen anzusehen.'
-          : ''
-    }
-  },
-  methods: {
-    async submit() {
-      try {
-        const transaction = await oktaAuth.signInWithCredentials({
-          username: this.form.email,
-          password: this.form.password
-        })
-        if (transaction.status === 'SUCCESS') {
-          await oktaAuth.token.getWithRedirect({ sessionToken: transaction.sessionToken })
-        } else {
-          alert('Login fehlgeschlagen')
-        }
-      } catch (e) {
-        alert('Login fehlgeschlagen')
-      }
-    }
-  }
-}
+  })
+})
+
+onBeforeUnmount(() => {
+  widget?.remove()
+})
 </script>
 
 <style scoped>
-.login-container {
+.widget-wrapper {
   max-width: 400px;
   margin: 3rem auto;
-  padding: 2rem;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
-
-.info {
-  color: #d32f2f;
-  margin-bottom: 1rem;
-}
-input {
-  display: block;
-  width: 100%;
-  padding: 0.6rem;
-  margin-bottom: 1rem;
-}
-button {
-  padding: 0.6rem 1.2rem;
-  background: #1a73e8;
-  border: none;
-  color: white;
-  cursor: pointer;
-  width: 100%;
-}
-
 </style>
