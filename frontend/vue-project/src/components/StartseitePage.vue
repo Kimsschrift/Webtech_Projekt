@@ -19,7 +19,7 @@
         <a href="#" class="forgot-link">Passwort vergessen?</a>
       </div>
 
-      <button class="login-btn" type="submit">Einloggen</button>
+      <button class="login-btn" @click="submit">Einloggen</button>
       <div v-if="errorMsg" class="login-error">{{ errorMsg }}</div>
 
       <!-- not implemented -->
@@ -54,14 +54,8 @@ export default {
     }
   },
   methods: {
-    async submit() {
-      try {
-        const res = await axios.post('/api/login', this.form)
-        localStorage.setItem('user', JSON.stringify(res.data))
-        this.$router.push('/afterLogin')
-      } catch (e) {
-        this.errorMsg('Login fehlgeschlagen')
-      }
+    submit() {
+      this.$router.push('/login')
     }
   }
 }

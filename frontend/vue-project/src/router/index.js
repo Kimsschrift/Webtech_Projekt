@@ -16,13 +16,17 @@ import OktaSignIn from '@okta/okta-signin-widget'
 import { OktaAuth } from '@okta/okta-auth-js'
 import { LoginCallback} from "@okta/okta-vue";
 
+const oktaBaseUrl = import.meta.env.VITE_OKTA_BASE_URL || 'https://trial-5957820.okta.com'
+const oktaClientId = import.meta.env.VITE_OKTA_CLIENT_ID || '0oaske4gq52p9f0gZ697'
+const oktaIssuer = import.meta.env.VITE_OKTA_ISSUER || `${oktaBaseUrl}/oauth2/default`
+
 const oktaSignIn = new OktaSignIn({
-    baseUrl: 'https://trial-5957820.okta.com',
-    clientId: '0oaske4gq52p9f0gZ697',
+    baseUrl: oktaBaseUrl,
+    clientId: oktaClientId,
     redirectUri: window.location.origin + '/login/callback',
     authParams: {
         pkce: true,
-        issuer: 'https://trial-5957820.okta.com/oauth2/default',
+        issuer: oktaIssuer,
         display: 'page',
         scopes: ['openid', 'profile', 'email']
     },
@@ -30,8 +34,8 @@ const oktaSignIn = new OktaSignIn({
 })
 
 const oktaAuth = new OktaAuth({
-    issuer: 'https://trial-5957820.okta.com/oauth2/default',
-    clientId: '0oaske4gq52p9f0gZ697',
+    issuer: oktaIssuer,
+    clientId: oktaClientId,
     redirectUri: window.location.origin + '/login/callback',
     scopes: ['openid', 'profile', 'email']
 })
@@ -50,9 +54,10 @@ const routes = [
     { path: '/register/company', name: 'CompanyRegisterView', component: CompanyRegisterView },
     { path: '/register/applicant', name: 'ApplicantRegisterView', component: ApplicantRegisterView },
     { path: '/login', name: 'LoginView', component: LoginView },
-    { path: '/login.callback', component: LoginCallback }
-
+    // Callback route required by Okta after a successful authentication
+    { path: '/login/callback', component: LoginCallback }
 ]
+
 
 const router = createRouter({
     history: createWebHistory(),

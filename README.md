@@ -53,6 +53,9 @@ Unternehmen wiederum können effizient Kandidat:innen mit passenden Qualifikatio
 
 Erstelle eine Kopie von `backend/.env.example` als `backend/.env` und fülle die Zugangsdaten für die Datenbank und API-URL aus.
 
+Erstelle zusätzlich eine Kopie von `frontend/vue-project/.env.example` als `frontend/vue-project/.env.local` und trage deine Okta-Konfiguration ein. 
+Damit die Anmeldung über Okta funktioniert, muss `http://localhost:5173` in Okta unter **Security → API → Trusted Origins** als CORS-Origin hinterlegt 
+und `http://localhost:5173/login/callback` als Redirect URI erlaubt sein.
 
 ### API Endpoints
 ## 📡 API Endpoints (Beispiel)
