@@ -12,30 +12,12 @@ import AdminAreaView from '@/views/AdminAreaView.vue'
 import StartPageAfterLogin from '@/views/StartPageAfterLogin.vue'
 import ApplicantInfoView from '@/views/ApplicantInfoView.vue'
 import RegisterTypeSelectView from "@/views/RegisterTypeSelectView.vue"
-import OktaSignIn from '@okta/okta-signin-widget'
 import { OktaAuth } from '@okta/okta-auth-js'
-import { LoginCallback} from "@okta/okta-vue";
-
-const oktaBaseUrl = import.meta.env.VITE_OKTA_BASE_URL || 'https://trial-5957820.okta.com'
-const oktaClientId = import.meta.env.VITE_OKTA_CLIENT_ID || '0oaske4gq52p9f0gZ697'
-const oktaIssuer = import.meta.env.VITE_OKTA_ISSUER || `${oktaBaseUrl}/oauth2/default`
-
-const oktaSignIn = new OktaSignIn({
-    baseUrl: oktaBaseUrl,
-    clientId: oktaClientId,
-    redirectUri: window.location.origin + '/login/callback',
-    authParams: {
-        pkce: true,
-        issuer: oktaIssuer,
-        display: 'page',
-        scopes: ['openid', 'profile', 'email']
-    },
-    features: { registration: true }
-})
+import { LoginCallback } from '@okta/okta-vue'
 
 const oktaAuth = new OktaAuth({
-    issuer: oktaIssuer,
-    clientId: oktaClientId,
+    issuer: 'https://trial-5957820.okta.com/oauth2/default',
+    clientId: '0oaske4gq52p9f0gZ697',
     redirectUri: window.location.origin + '/login/callback',
     scopes: ['openid', 'profile', 'email']
 })
@@ -54,10 +36,9 @@ const routes = [
     { path: '/register/company', name: 'CompanyRegisterView', component: CompanyRegisterView },
     { path: '/register/applicant', name: 'ApplicantRegisterView', component: ApplicantRegisterView },
     { path: '/login', name: 'LoginView', component: LoginView },
-    // Callback route required by Okta after a successful authentication
-    { path: '/login/callback', component: LoginCallback }
-]
+    { path: '/login/callback', component: LoginCallback },
 
+]
 
 const router = createRouter({
     history: createWebHistory(),
@@ -65,4 +46,4 @@ const router = createRouter({
 })
 
 export default router
-export { oktaAuth, oktaSignIn }
+export { oktaAuth }

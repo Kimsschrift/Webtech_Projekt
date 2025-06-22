@@ -19,7 +19,7 @@
         <a href="#" class="forgot-link">Passwort vergessen?</a>
       </div>
 
-      <button class="login-btn" @click="submit">Einloggen</button>
+      <button class="login-btn" type="submit">Einloggen</button>
       <div v-if="errorMsg" class="login-error">{{ errorMsg }}</div>
 
       <!-- not implemented -->
@@ -42,7 +42,7 @@
 
 
 <script>
-import axios from 'axios'
+import { oktaAuth } from '../router'
 
 export default {
   name: "StartseitePage",
@@ -54,8 +54,20 @@ export default {
     }
   },
   methods: {
-    submit() {
-      this.$router.push('/login')
+    async submit() {
+      try {
+        const transaction = await oktaAuth.signInWithCredentials({
+          username: this.form.email,
+          password: this.form.password
+        })
+        if (transaction.status === 'SUCCESS') {
+          await oktaAuth.token.getWithRedirect({ sessionToken: transaction.sessionToken })
+        } else {
+          this.errorMsg = 'Login fehlgeschlagen'
+        }
+      } catch (e) {
+        this.errorMsg = 'Login fehlgeschlagen'
+      }
     }
   }
 }

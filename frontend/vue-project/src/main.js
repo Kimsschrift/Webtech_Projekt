@@ -6,8 +6,6 @@ import axios from 'axios';
 import './navigation-guards'
 
 
-
-
 // Set Axios base URL from environment or fall back to localhost
 axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
 
