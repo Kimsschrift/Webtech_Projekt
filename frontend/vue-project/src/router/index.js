@@ -19,7 +19,7 @@ import { LoginCallback} from "@okta/okta-vue";
 const oktaSignIn = new OktaSignIn({
     baseUrl: 'https://trial-5957820.okta.com',
     clientId: '0oaske4gq52p9f0gZ697',
-    redirectUri: process.env.VUE_APP_FRONTEND_BASE_URL + '/login/callback',
+    redirectUri: window.location.origin + '/login/callback',
     authParams: {
         pkce: true,
         issuer: 'https://trial-5957820.okta.com/oauth2/default',

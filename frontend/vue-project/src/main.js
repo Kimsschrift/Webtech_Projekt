@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router, { oktaAuth } from './router'
-import { OktaVuePlugin } from '@okta/okta-vue'
+import OktaVue from '@okta/okta-vue'
 import axios from 'axios';
 import './navigation-guards'
 
@@ -13,6 +13,6 @@ axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:
 
 
 createApp(App)
-    .use(OktaVuePlugin, { oktaAuth })
+    .use(OktaVue, { oktaAuth })
     .use(router)
     .mount('#app')
