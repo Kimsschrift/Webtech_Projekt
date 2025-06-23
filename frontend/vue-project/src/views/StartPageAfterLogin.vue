@@ -1,7 +1,7 @@
 <template>
   <div class="after-login">
     <h2>Willkommen</h2>
-    <button @click="$router.push('/personal-info')">Persönliche Daten</button>
+    <button v-if="isApplicant" @click="$router.push('/personal-info')">Persönliche Daten</button>
     <button @click="$router.push('/jobs')">JobPostingAnsehen</button>
     <button @click="logout">Logout</button>
   </div>
@@ -10,10 +10,16 @@
 <script>
 export default {
   name: 'StartPageAfterLogin',
-
+  computed: {
+    isApplicant() {
+      const user = JSON.parse(localStorage.getItem('user') || '{}')
+      return user.role === 'APPLICANT'
+    }
+  },
   methods: {
-    async logout() {
-      await this.$auth.logout()
+    logout() {
+      localStorage.removeItem('user')
+      this.$router.push('/')
     }
   }
 }

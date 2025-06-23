@@ -11,28 +11,7 @@ import CompanyDashboardView from '@/views/CompanyDashboardView.vue'
 import AdminAreaView from '@/views/AdminAreaView.vue'
 import StartPageAfterLogin from '@/views/StartPageAfterLogin.vue'
 import ApplicantInfoView from '@/views/ApplicantInfoView.vue'
-import RegisterTypeSelectView from "@/views/RegisterTypeSelectView.vue"
-import { OktaAuth } from '@okta/okta-auth-js'
-import { LoginCallback } from '@okta/okta-vue'
-
-let oktaAuth
-try {
-    const issuer = import.meta.env.VITE_OKTA_ISSUER
-    const clientId = import.meta.env.VITE_OKTA_CLIENT_ID
-    if (issuer && clientId) {
-        oktaAuth = new OktaAuth({
-            issuer,
-            clientId,
-            redirectUri: window.location.origin + '/login/callback',
-            scopes: ['openid', 'profile', 'email'],
-            pkce: true
-        })
-    } else {
-        console.warn('Okta environment variables are not set - authentication disabled')
-    }
-} catch (e) {
-    console.error('Failed to initialize OktaAuth', e)
-}
+import RegisterTypeSelectView from "@/views/RegisterTypeSelectView.vue";
 
 const routes = [
     { path: '/', name: 'StartseitePage', component: StartseitePage },
@@ -48,7 +27,6 @@ const routes = [
     { path: '/register/company', name: 'CompanyRegisterView', component: CompanyRegisterView },
     { path: '/register/applicant', name: 'ApplicantRegisterView', component: ApplicantRegisterView },
     { path: '/login', name: 'LoginView', component: LoginView },
-    { path: '/login/callback', component: LoginCallback },
 
 ]
 
@@ -58,4 +36,3 @@ const router = createRouter({
 })
 
 export default router
-export { oktaAuth }

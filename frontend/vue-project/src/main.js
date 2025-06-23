@@ -1,7 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import router, { oktaAuth } from './router'
-import OktaVue from '@okta/okta-vue'
+import router from './router'
 import axios from 'axios';
 import './navigation-guards'
 
@@ -10,8 +9,4 @@ import './navigation-guards'
 axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
 
 
-const app = createApp(App)
-if (oktaAuth) {
-    app.use(OktaVue, { oktaAuth })
-}
-app.use(router).mount('#app')
+createApp(App).use(router).mount('#app')

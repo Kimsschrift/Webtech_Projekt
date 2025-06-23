@@ -1,15 +1,13 @@
 spring:
-  config:
-    import:  optional:file:../.env
   servlet:
     multipart:
       max-file-size: 20MB
       max-request-size: 30MB
-    datasource:
-      url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/mydb}
-      username: ${DATASOURCE_USERNAME:postgres}
-      password: ${DATASOURCE_PASSWORD:postgres}
-      driver-class-name: ${DATASOURCE_DRIVER:org.postgresql.Driver}
+  datasource:
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 5
   jpa:
@@ -18,7 +16,7 @@ spring:
     properties:
       hibernate:
         # The SQL dialect makes Hibernate generate better SQL for the chosen database
-        dialect: ${HIBERNATE_DIALECT:org.hibernate.dialect.H2Dialect}
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         jdbc.time_zone: UTC
         format_sql: true
         use_sql_comments: true
@@ -35,22 +33,11 @@ spring:
     resources:
       static-locations: classpath:/static/, file:uploads/
 
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: ${OKTA_ISSUER:https://trial-5957820.okta.com/oauth2/default}
-
-
 logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql: TRACE
 
-okta:
-  oauth2:
-    issuer: ${OKTA_ISSUER:https://trial-5957820.okta.com/oauth2/default}
-    audience: api://default
 
 
 

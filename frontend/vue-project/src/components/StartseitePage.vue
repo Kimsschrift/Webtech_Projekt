@@ -1,6 +1,33 @@
 <template>
   <div class="login-container">
-    <button class="login-btn" @click="login">Mit Okta anmelden</button>
+    <p style="font-weight: bold">Bitte geben Sie Ihre Daten ein</p>
+
+    <form class="login-form" @submit.prevent="submit">
+      <label for="email">E-mail</label>
+      <input id="email" v-model="form.email" type="email" placeholder="E-Mail" required/>
+
+      <label for="password">Passwort</label>
+      <input id="password" v-model="form.password" type="password" placeholder="Passwort" required />
+
+      <!-- not implemented -->
+      <div class="remember-forgot">
+        <label class="remember-label">
+          <input type="checkbox" /> Für 30 Tage merken
+        </label>
+
+        <!-- not implemented -->
+        <a href="#" class="forgot-link">Passwort vergessen?</a>
+      </div>
+
+      <button class="login-btn" type="submit">Einloggen</button>
+      <div v-if="errorMsg" class="login-error">{{ errorMsg }}</div>
+
+      <!-- not implemented -->
+      <div class="google-login">
+        <img src="@/assets/GoogleLogo.png" alt="Google Logo" class="google-logo"/>
+        <span>Mit Google anmelden</span>
+      </div>
+    </form>
 
     <div class="no-account">
       Sie haben noch kein Konto?
@@ -15,17 +42,25 @@
 
 
 <script>
-import { oktaAuth } from '../router'
+import axios from 'axios'
 
 export default {
   name: "StartseitePage",
 
+  data() {
+    return {
+      form: { email: '', password: '' },
+      errorMsg: ""
+    }
+  },
   methods: {
-    login() {
-      if (oktaAuth) {
-        oktaAuth.signInWithRedirect()
-      } else {
-        alert('Login-Service ist nicht konfiguriert')
+    async submit() {
+      try {
+        const res = await axios.post('/api/login', this.form)
+        localStorage.setItem('user', JSON.stringify(res.data))
+        this.$router.push('/afterLogin')
+      } catch (e) {
+        this.errorMsg('Login fehlgeschlagen')
       }
     }
   }
@@ -49,7 +84,44 @@ export default {
 }
 
 
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  width: 100%;
+}
 
+.login-form label {
+  font-weight: 500;
+}
+
+.login-form input[type="email"],
+.login-form input[type="password"] {
+  padding: 0.7rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  font-size: 1rem;
+}
+
+.remember-forgot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.3rem;
+}
+
+.remember-label {
+  font-size: 0.98rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.forgot-link {
+  font-size: 0.95rem;
+  color: #377dff;
+  text-decoration: none;
+}
 
 .login-btn {
   margin-top: 10px;
@@ -66,6 +138,30 @@ export default {
 
 .login-btn:hover {
   background: #185abc;
+}
+
+.google-login {
+  margin: 1.2rem 0 0.6rem 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  justify-content: center;
+  padding: 0.6rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  border: 1px solid #e5e7eb;
+  transition: background 0.15s;
+}
+
+.google-login:hover {
+  background: #f1f3f4;
+}
+
+.google-logo {
+  width: 23px;
+  height: 23px;
 }
 
 .no-account {
@@ -90,4 +186,10 @@ export default {
   border-radius: 0 0 14px 14px;
 }
 
+.login-error {
+  color: red;
+  margin-top: 0.6rem;
+  text-align: center;
+  font-weight: bold;
+}
 </style>
