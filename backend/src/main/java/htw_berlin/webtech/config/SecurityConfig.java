@@ -14,16 +14,16 @@ import org.springframework.web.servlet.config.annotation.CorsRegistration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Configuration
-@EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfiguration {
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests().anyRequest().authenticated().and().oauth2Login()
-                .and().csrf().disable();
-    }
-
-
-}
+//@Configuration
+//@EnableWebSecurity
+//public class SecurityConfig extends WebSecurityConfiguration {
+//
+////    @Override
+////    protected void configure(HttpSecurity http) throws Exception {
+////        http.authorizeHttpRequests().anyRequest().authenticated().and().oauth2Login()
+////                .and().csrf().disable();
+////    }
+//
+//
+//}
 

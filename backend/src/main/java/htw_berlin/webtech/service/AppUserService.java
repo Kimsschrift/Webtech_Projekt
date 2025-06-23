@@ -28,7 +28,6 @@ public class AppUserService {
     private final CompanyRepository companyRepository;
     private final ApplicantRepository applicantRepository;
     private final AdminRepository adminRepository;
-    private final PasswordEncoder passwordEncoder;
 
     public void registerUser(RegistrationRequest request) {
         if (appUserRepository.existsByEmail(request.getEmail())) {
@@ -37,7 +36,7 @@ public class AppUserService {
 
         AppUser user = AppUser.builder()
                 .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
+                .password(request.getPassword())
                 .role(request.getRole())
                 .enabled(true)
                 .build();
