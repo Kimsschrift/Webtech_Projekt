@@ -10,7 +10,8 @@ import './navigation-guards'
 axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
 
 
-createApp(App)
-    .use(OktaVue, { oktaAuth })
-    .use(router)
-    .mount('#app')
+const app = createApp(App)
+if (oktaAuth) {
+    app.use(OktaVue, { oktaAuth })
+}
+app.use(router).mount('#app')

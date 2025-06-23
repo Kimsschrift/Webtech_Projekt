@@ -22,7 +22,11 @@ export default {
 
   methods: {
     login() {
-      oktaAuth.signInWithRedirect()
+      if (oktaAuth) {
+        oktaAuth.signInWithRedirect()
+      } else {
+        alert('Login-Service ist nicht konfiguriert')
+      }
     }
   }
 }

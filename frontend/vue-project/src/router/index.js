@@ -15,13 +15,24 @@ import RegisterTypeSelectView from "@/views/RegisterTypeSelectView.vue"
 import { OktaAuth } from '@okta/okta-auth-js'
 import { LoginCallback } from '@okta/okta-vue'
 
-const oktaAuth = new OktaAuth({
-    issuer: import.meta.env.VITE_OKTA_ISSUER,
-    clientId: import.meta.env.VITE_OKTA_CLIENT_ID,
-    redirectUri: window.location.origin + '/login/callback',
-    scopes: ['openid', 'profile', 'email'],
-    pkce: true
-})
+let oktaAuth
+try {
+    const issuer = import.meta.env.VITE_OKTA_ISSUER
+    const clientId = import.meta.env.VITE_OKTA_CLIENT_ID
+    if (issuer && clientId) {
+        oktaAuth = new OktaAuth({
+            issuer,
+            clientId,
+            redirectUri: window.location.origin + '/login/callback',
+            scopes: ['openid', 'profile', 'email'],
+            pkce: true
+        })
+    } else {
+        console.warn('Okta environment variables are not set - authentication disabled')
+    }
+} catch (e) {
+    console.error('Failed to initialize OktaAuth', e)
+}
 
 const routes = [
     { path: '/', name: 'StartseitePage', component: StartseitePage },
