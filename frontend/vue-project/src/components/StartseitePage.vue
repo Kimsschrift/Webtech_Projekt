@@ -60,7 +60,7 @@ export default {
         localStorage.setItem('user', JSON.stringify(res.data))
         this.$router.push('/afterLogin')
       } catch (e) {
-        this.errorMsg('Login fehlgeschlagen')
+        this.errorMsg = 'Login fehlgeschlagen'
       }
     }
   }
