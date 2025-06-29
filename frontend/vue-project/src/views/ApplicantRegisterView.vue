@@ -11,7 +11,7 @@
       <label class="file-label">Lebenslauf (PDF):</label>
       <input type="file" accept=".pdf" @change="handleFile('cvFile', $event)" />
 
-      <label class="file-label">Bewerbungstext (txt/pdf):</label>
+      <label class="file-label">Anschreiben (txt/pdf):</label>
       <input type="file" accept=".txt,.pdf" @change="handleFile('resumeTextFile', $event)" />
 
       <label class="file-label">Profilbild (JPG/PNG):</label>
